@@ -18,6 +18,10 @@
 // #include "base/geometry/dimension.h"
 // #include "base/utils/linear_map.h"
 // #include "base/utils/utils.h"
+#include "native_drawing/drawing_bitmap.h"
+#include "multimedia/image_framework/image/image_packer_native.h"
+#include "multimedia/image_framework/image/image_source_native.h"
+#include "multimedia/image_framework/image/pixelmap_native.h"
 
 namespace rnoh {
 namespace svg {
@@ -672,6 +676,8 @@ inline std::string doubleVectorToString(const std::vector<double>& doubleVec) {
     }
     return oss.str(); // 将流中的内容转换为字符串并返回
 }
+std::string base64_encode(unsigned char const* bytes_to_encode, size_t in_len, bool url = false) ;
+std::string bitmapToBase64(OH_Drawing_Bitmap *bitmap);
 }
 
 } // namespace svg
