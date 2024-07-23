@@ -1,30 +1,30 @@
-//
-// Created on 2024/7/11.
-//
-// Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// please include "napi/native_api.h".
-
 #include "SvgViewManager.h"
 
-namespace rnoh{
-namespace svg{
-void SvgViewManager::setSvgView(int tag, std::shared_ptr<SvgSvg> svg){
-    mTagToSvgViewMap.insert(std::make_pair(tag,svg));
+namespace rnoh {
+namespace svg {
+void SvgViewManager::setSvgView(int tag, std::weak_ptr<SvgSvg> svg) {
+    mTagToSvgViewMap.insert(std::make_pair(tag, svg));
 }
 
-std::shared_ptr<SvgSvg> SvgViewManager::getSvgViewByTag(int tag){
-    std::shared_ptr<SvgSvg> svgSvg = nullptr;
+std::weak_ptr<SvgSvg> SvgViewManager::getSvgViewByTag(int tag) {
+    std::weak_ptr<SvgSvg> svgSvg;
     auto it = mTagToSvgViewMap.find(tag);
-    if (it != mTagToSvgViewMap.end()){
+    if (it != mTagToSvgViewMap.end()) {
         svgSvg = it->second;
     }
     return svgSvg;
 }
 
-void SvgViewManager::onDropView(int tag){
+void SvgViewManager::onDropView(int tag) {
     // 将svgview从容器中删除
     mTagToSvgViewMap.erase(tag);
 }
 
+SvgViewManager::~SvgViewManager() {
+    if (mTagToSvgViewMap.empty() == false) {
+        mTagToSvgViewMap.clear();
+    }
 }
-}
+
+} // namespace svg
+} // namespace rnoh

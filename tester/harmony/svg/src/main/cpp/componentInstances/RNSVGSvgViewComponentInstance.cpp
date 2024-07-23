@@ -9,6 +9,7 @@ RNSVGSvgViewComponentInstance::RNSVGSvgViewComponentInstance(Context context)
     SetSvgNode(std::make_shared<SvgSvg>());
     getLocalRootArkUINode().SetSvgNode(GetSvgNode());
     GetSvgNode()->SetContext(std::make_shared<SvgContext>());
+    SvgViewManager::getInstance().setSvgView(CppComponentInstance::getTag(), dynamic_pointer_cast<SvgSvg>(GetSvgNode()));
 }
 
 void RNSVGSvgViewComponentInstance::onPropsChanged(SharedConcreteProps const &props) {
@@ -28,7 +29,6 @@ void RNSVGSvgViewComponentInstance::onPropsChanged(SharedConcreteProps const &pr
     DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->pointScaleFactor: " << m_layoutMetrics.pointScaleFactor;
 
     auto svg = dynamic_pointer_cast<SvgSvg>(GetSvgNode());
-    SvgViewManager::getInstance().setSvgView(CppComponentInstance::getTag(), svg);
     svg->SetScale(m_layoutMetrics.pointScaleFactor);
     auto tintColor = getColorFromDynamic(props->rawProps);
     if (tintColor.has_value()) {
