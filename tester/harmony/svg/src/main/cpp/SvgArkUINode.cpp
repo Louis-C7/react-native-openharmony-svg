@@ -9,6 +9,7 @@
 #include <native_drawing/drawing_types.h>
 #include <sstream>
 #include <functional>
+#include "SvgViewManager.h"
 
 namespace rnoh {
 namespace svg {

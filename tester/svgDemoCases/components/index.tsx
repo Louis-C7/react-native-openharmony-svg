@@ -29,6 +29,7 @@ import ComplexDemo from './ComplexDemo';
 import RNSVGSvgIOS from './RNSVGSvgIOS';
 import PerformanceList from './PerformanceList';
 import PanResponder from './PanResponder';
+import SvgViewModuleCase from './SvgViewModuleCase'
 export default {
     Circle,
     Defs,
@@ -61,4 +62,5 @@ export default {
     RNSVGSvgIOS,
     PerformanceTest: PerformanceList,
     PanResponder,
+    SvgViewModuleCase,
 }
