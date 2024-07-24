@@ -16,6 +16,10 @@ public:
     SvgImage() = default;
     ~SvgImage() override = default;
     
+    double relativeOnWidth(Dimension length) { return length.RelativeConvertToPx(getCanvasWidth(), scale_); }
+
+    double relativeOnHeight(Dimension length) { return length.RelativeConvertToPx(getCanvasHeight(), scale_); }
+
     void SetX(const std::string &x) { imageAttribute_.x = SvgAttributesParser::ParseDimension(x, true); }
     
     void SetY(const std::string &y) { imageAttribute_.y = SvgAttributesParser::ParseDimension(y, true); }
