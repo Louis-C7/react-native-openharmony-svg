@@ -4,6 +4,7 @@
 #include <folly/dynamic.h>
 #include "SvgArkUINode.h"
 #include "SvgShadowNodes.h"
+#include "SvgViewManager.h"
 
 namespace rnoh {
 namespace svg {
