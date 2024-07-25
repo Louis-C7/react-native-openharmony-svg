@@ -2,14 +2,14 @@
 
 #include <string>
 #include "SvgGraphic.h"
-#include <native_drawing/drawing_image.h>
-#include <native_drawing/drawing_rect.h>
-#include <native_drawing/drawing_pixel_map.h>
-#include <native_drawing/drawing_sampling_options.h>
+#include <rawfile/raw_file_manager.h>
 
 
 namespace rnoh {
 namespace svg {
+
+using SvgNode::relativeOnWidth;
+using SvgNode::relativeOnHeight;
 
 class SvgImage : public svg::SvgGraphic {
 public:
