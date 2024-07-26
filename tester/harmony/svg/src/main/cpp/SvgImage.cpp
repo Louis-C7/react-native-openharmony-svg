@@ -20,6 +20,11 @@
 #include <multimedia/image_framework/image/image_source_native.h>
 #include <multimedia/image_framework/image_pixel_map_mdk.h>
 #include <glog/logging.h>
+#include <native_drawing/drawing_image.h>
+#include <native_drawing/drawing_rect.h>
+#include <native_drawing/drawing_pixel_map.h>
+#include <native_drawing/drawing_sampling_options.h>
+#include <rawfile/raw_file.h>
 
 const char * ASSET_PREFIX = "asset://";
 const char * RAWFILE_PREFIX = "assets/";
