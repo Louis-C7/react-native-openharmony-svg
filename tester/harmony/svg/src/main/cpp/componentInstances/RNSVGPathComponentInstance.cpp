@@ -13,7 +13,9 @@ void RNSVGPathComponentInstance::UpdateElementProps(SharedConcreteProps const &p
     DLOG(INFO) << "[RNSVGPathComponentInstance] d: " << props->d;
     auto svgPath = std::dynamic_pointer_cast<SvgPath>(GetSvgNode());
     svgPath->UpdateCommonProps(props);
-    svgPath->setD(props->d);
+    if (!m_props || props->d != m_props->d) {
+        svgPath->setD(props->d);
+    }
 }
 
 } // namespace svg

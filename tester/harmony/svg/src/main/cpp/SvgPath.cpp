@@ -16,7 +16,6 @@
 #include "SvgPath.h"
 #include "utils/PathParserUtils.h"
 #include <native_drawing/drawing_matrix.h>
-#include "drawing/Matrix.h"
 #include "utils/PathParserUtils.h"
 
 namespace rnoh {
@@ -24,11 +23,9 @@ namespace svg {
 
 void SvgPath::setD(const std::string &d) {
     d_ = d;
-    std::replace(d_.begin(), d_.end(), ',', ' ');
     PathParserUtils parser;
     parser.mScale = scale_;
-    // only parser "d" to record the point info
-    parser.parse(d.c_str());
+    path_ = std::move(parser.parse(d.c_str()));
     elements_ = parser.elements;
     for (PathElement &elem : elements_) {
         for (Point &point : elem.points) {
@@ -39,19 +36,8 @@ void SvgPath::setD(const std::string &d) {
 }
 
 drawing::Path SvgPath::AsPath() {
-    drawing::Matrix matrix;
-    drawing::Path out;
-    /*
-    /* (OH_Drawing_Matrix* , float scaleX, float skewX, float transX, float skewY, float scaleY, float transY, float
-    persp0, float persp1, float persp2 )
-    */
-    //TODO scale canvas? need to pass canvas in AsPath()
-    matrix.SetMatrix(scale_, 0, 0, 0, scale_, 0, 0, 0, 1.0);
-    auto path = drawing::Path::BuildFromSvgString(d_.c_str());
-    if (path.has_value()) {
-        out = std::move(path.value());
-        out.Transform(matrix);
-        return out;
+    if (path_.get()) {
+        return path_;
     }
     return drawing::Path();
 }
