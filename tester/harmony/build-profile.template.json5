@@ -4,9 +4,8 @@
       {
         name: 'default',
         signingConfig: 'default',
-        compileSdkVersion: '4.1.0(11)',
-        compatibleSdkVersion: '4.1.0(11)',
-        runtimeOS: 'HarmonyOS',
+        compatibleSdkVersion: "5.0.0(12)",
+        runtimeOS: 'HarmonyOS'
       },
     ],
     buildModeSet: [
@@ -17,8 +16,7 @@
         name: 'release',
       },
     ],
-    "signingConfigs": [
-    ]
+    "signingConfigs": []
   },
   modules: [
     {
@@ -36,6 +34,6 @@
     {
       name: 'svg',
       srcPath: './svg',
-    },
+    }
   ],
 }
