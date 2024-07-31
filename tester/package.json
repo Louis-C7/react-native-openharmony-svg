@@ -8,6 +8,7 @@
     "pack:pkg": "cd ../react-native-harmony-svg && npm pack && cd ../tester",
     "install:pkg": "npm run pack:pkg && npm i @react-native-oh-tpl/react-native-svg@file:../react-native-harmony-svg/react-native-oh-tpl-react-native-svg-15.0.0-0.5.4.tgz",
     "dev": "npm uninstall react-native-harmony-svg && npm run install:pkg && react-native bundle-harmony --dev --minify=false",
+    "postinstall": "node ./scripts/create-build-profile",
     "android": "react-native run-android"
   },
   "dependencies": {
