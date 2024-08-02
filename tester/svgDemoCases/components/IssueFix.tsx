@@ -25,6 +25,7 @@ import { Tester, Filter, TestCase, TestSuite } from '@rnoh/testerino';
 import Issue241 from './issueTests/Issue241';
 import Issue236 from './issueTests/Issue236';
 import Issue244 from './issueTests/Issue244';
+import Issue267 from './issueTests/Issue267';
 
 class SvgLayoutExample extends Component {
   static title = 'SVG with flex layout';
@@ -391,6 +392,9 @@ export default function () {
         </TestCase>
         <TestCase itShould="Issue #244: Text linear gradient">
           <Issue244 />
+        </TestCase>
+        <TestCase itShould="Issue #267: Pattern width erroneously set equal to height">
+          <Issue267 />
         </TestCase>
       </ScrollView>
     </Tester>

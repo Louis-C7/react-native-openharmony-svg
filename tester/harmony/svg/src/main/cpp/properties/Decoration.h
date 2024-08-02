@@ -408,7 +408,7 @@ public:
 
     void setHeight(Dimension height) { height_ = height; }
 
-    Dimension getHeight() { return width_; }
+    Dimension getHeight() { return height_; }
 
     void setWidth(Dimension width) { width_ = width; }
 
