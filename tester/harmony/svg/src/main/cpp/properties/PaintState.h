@@ -7,7 +7,7 @@
 // #include "core/components/common/properties/decoration.h"
 // #include "core/components/common/properties/text_style.h"
 #include "properties/Color.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 
 
 namespace rnoh {

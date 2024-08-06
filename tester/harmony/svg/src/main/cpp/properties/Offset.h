@@ -21,7 +21,7 @@
 #include <limits>
 
 #include "properties/Size.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 
 namespace rnoh {
 namespace svg {

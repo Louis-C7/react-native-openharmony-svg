@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include "properties/Size.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 #include "properties/Offset.h"
 
 namespace rnoh {

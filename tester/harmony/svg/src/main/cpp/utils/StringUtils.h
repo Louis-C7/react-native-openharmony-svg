@@ -9,15 +9,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "Utils.h"
 #include "properties/Dimension.h"
-#include "utils/Utils.h"
-// #include "pr"
-// #include "pro"
-// #include "base/geometry/calc_dimension.h"
-// #include "base/geometry/dimension.h"
-// #include "base/utils/linear_map.h"
-// #include "base/utils/utils.h"
+#include "utils/SvgUtils.h"
 #include "native_drawing/drawing_bitmap.h"
 #include "multimedia/image_framework/image/image_packer_native.h"
 #include "multimedia/image_framework/image/image_source_native.h"

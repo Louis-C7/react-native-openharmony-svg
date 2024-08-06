@@ -2,7 +2,7 @@
 #include "properties/Size.h"
 #include "utils/LinearMap.h"
 #include "utils/StringUtils.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 #include "properties/ViewBox.h"
 #include <string>
 #include <vector>
