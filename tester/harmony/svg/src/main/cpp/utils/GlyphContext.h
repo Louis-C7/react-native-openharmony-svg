@@ -5,7 +5,7 @@
 #include <memory>
 #include <unordered_map>
 #include "properties/Dimension.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 #include "SvgNode.h"
 
 namespace rnoh {

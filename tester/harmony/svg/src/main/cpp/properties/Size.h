@@ -6,7 +6,7 @@
 #include <sstream>
 #include <string>
 
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 
 namespace rnoh {
 namespace svg {

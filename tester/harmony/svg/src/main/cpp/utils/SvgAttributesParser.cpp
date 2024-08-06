@@ -2,7 +2,7 @@
 
 #include "utils/SvgAttributesParser.h"
 
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 #include "utils/StringUtils.h"
 #include "properties/Color.h"
 #include "utils/LinearMap.h"

@@ -1,5 +1,5 @@
 #include "SvgNode.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 #include "SvgGradient.h"
 #include "SvgPattern.h"
 #include <native_drawing/drawing_matrix.h>

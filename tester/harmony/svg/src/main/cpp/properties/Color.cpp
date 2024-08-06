@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <regex>
 #include "Color.h"
-#include "utils/Utils.h"
+#include "utils/SvgUtils.h"
 #include "utils/StringUtils.h"
 #include "utils/LinearMap.h"
 namespace rnoh {
