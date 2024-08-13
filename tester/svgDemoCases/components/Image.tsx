@@ -93,6 +93,11 @@ const basicCases: CaseParams[] = [
                 height: 60,
                 href: require('../../assets/pic.webp'),
             },
+            {
+                width:90,
+                height: 60,
+                href: "/data/storage/el2/base/haps/entry/files/1.png", // 需要该文件路径存在 前面getContext(this).filesDir 后面用户自定义
+            },
         ]
     },
     preserveAspectRatioCases,
