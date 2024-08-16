@@ -26,6 +26,26 @@ void RNSVGImageComponentInstance::UpdateElementProps(SharedConcreteProps const &
     svgImage->SetAlign(props->align);
     svgImage->SetMeetOrSlice(props->meetOrSlice);
     svgImage->SetImageSource(props->src);
+    svgImage->setBundlePath(getBundlePath());
+}
+
+std::string RNSVGImageComponentInstance::getBundlePath() {
+    if (!m_deps) {
+        return "";
+    }
+    auto rnInstance = m_deps->rnInstance.lock();
+    if (!rnInstance) {
+        return "";
+    }
+    auto internalInstance = std::dynamic_pointer_cast<RNInstanceInternal>(rnInstance);
+    if (!internalInstance) {
+        return "";
+    }
+    std::string bundlePath = internalInstance->getBundlePath();
+    if (bundlePath.empty()) {
+        return "";
+    }
+    return bundlePath;
 }
 
 } // namespace svg

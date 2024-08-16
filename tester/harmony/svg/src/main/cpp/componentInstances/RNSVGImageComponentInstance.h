@@ -36,6 +36,8 @@ public:
     RNSVGImageComponentInstance(Context context);
 
     void UpdateElementProps(SharedConcreteProps const &props) override;
+    
+    std::string getBundlePath();
 };
 
 } // namespace svg

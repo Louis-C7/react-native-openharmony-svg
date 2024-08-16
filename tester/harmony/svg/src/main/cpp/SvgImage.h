@@ -31,11 +31,16 @@ public:
     
     void setNativeResourceManager(const NativeResourceManager* mgr) { mgr_ = mgr; }
     
+    void setBundlePath(const std::string &path) { bundlePath_ = path; }
+    
+    void getAssetSandbox(const std::string &assetPath, std::string &uri);
+    
     void OnDraw(OH_Drawing_Canvas *canvas) override;
-
+    
 private:
     SvgImageAttribute imageAttribute_;
     const NativeResourceManager* mgr_;
+    std::string bundlePath_;
 };
 
 } // namespace svg

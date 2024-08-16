@@ -32,9 +32,18 @@ const char * RAWFILE_PREFIX = "assets/";
 namespace rnoh {
 namespace svg {
 
+void SvgImage::getAssetSandbox(const std::string &assetPath, std::string &uri) {
+    std::string bundlePathPre = bundlePath_;
+    size_t pos = bundlePath_.find_last_of('/');
+    if (pos != std::string::npos) {
+        bundlePathPre = bundlePath_.substr(0, pos);
+    }
+    auto filePath = assetPath.substr(7);
+    uri = bundlePathPre + "/" + filePath;
+}
+
 void SvgImage::OnDraw(OH_Drawing_Canvas *canvas) {
     auto uriString = imageAttribute_.src.uri;
-
     if (uriString.empty()) {
         DLOG(WARNING) << "[SvgImage] imageAttribute_.src.uri is empty!";
         return;
@@ -62,16 +71,21 @@ void SvgImage::OnDraw(OH_Drawing_Canvas *canvas) {
             DLOG(INFO) << "[SvgImage] file: " << file;
             auto rawFile = OH_ResourceManager_OpenRawFile(mgr_, file.c_str());
             if (rawFile == nullptr) {
-                LOG(ERROR) << "[SvgImage] get rawfile fail";
-                return;
+            	std::string uri;
+                getAssetSandbox(uriString, uri);
+                createFromUriStatus = OH_ImageSourceNative_CreateFromUri(const_cast<char *>(uri.c_str()), uri.size(), &res);
+                if (createFromUriStatus != IMAGE_SUCCESS) {
+                    LOG(ERROR) << "[SvgImage] create asset file fail";
+                }
+            } else {
+                RawFileDescriptor descriptor;
+                auto getRawFileStatus = OH_ResourceManager_GetRawFileDescriptor(rawFile, descriptor);
+                if (!getRawFileStatus) {
+                    LOG(ERROR) << "[SvgImage] get rawfile descriptor fail";
+                    return;
+                }
+                createFromUriStatus = OH_ImageSourceNative_CreateFromRawFile(&descriptor, &res);
             }
-            RawFileDescriptor descriptor;
-            auto getRawFileStatus = OH_ResourceManager_GetRawFileDescriptor(rawFile, descriptor);
-            if (!getRawFileStatus) {
-                LOG(ERROR) << "[SvgImage] get rawfile descriptor fail";
-                return;
-            }
-            createFromUriStatus = OH_ImageSourceNative_CreateFromRawFile(&descriptor, &res);
         } else {
             createFromUriStatus = OH_ImageSourceNative_CreateFromUri(srcUri, uriString.size(), &res);
         }
