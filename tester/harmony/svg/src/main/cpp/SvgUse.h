@@ -21,6 +21,8 @@ namespace svg {
         std::string href;
 
         void OnDraw(OH_Drawing_Canvas *canvas) override;
+    
+        drawing::Path AsPath() override;
     private:
         class AttributeScope {
             public:

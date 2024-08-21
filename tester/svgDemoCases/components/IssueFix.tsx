@@ -26,6 +26,7 @@ import Issue241 from './issueTests/Issue241';
 import Issue236 from './issueTests/Issue236';
 import Issue244 from './issueTests/Issue244';
 import Issue267 from './issueTests/Issue267';
+import Issue280 from './issueTests/Issue280';
 
 class SvgLayoutExample extends Component {
   static title = 'SVG with flex layout';
@@ -395,6 +396,9 @@ export default function () {
         </TestCase>
         <TestCase itShould="Issue #267: Pattern width erroneously set equal to height">
           <Issue267 />
+        </TestCase>
+        <TestCase itShould="Issue #280: The svg image is not displayed when mask and use are used at the same time.">
+          <Issue280 />
         </TestCase>
       </ScrollView>
     </Tester>

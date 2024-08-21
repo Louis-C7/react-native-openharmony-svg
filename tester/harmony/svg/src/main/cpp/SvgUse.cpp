@@ -35,6 +35,20 @@ void SvgUse::OnDraw(OH_Drawing_Canvas *canvas) {
     return;
 }
 
+drawing::Path SvgUse::AsPath() {
+    drawing::Path path;
+    auto svgContext = GetContext();
+    if (!svgContext) {
+        return path;
+    }
+    auto refSvgNode = svgContext->GetSvgNodeById(href);
+    if (!refSvgNode) {
+        return path;
+    }
+    path = refSvgNode->AsPath();
+    return path;
+}
+
 SvgUse::AttributeScope::AttributeScope(const std::shared_ptr<SvgNode> &node) : node_(node) {
     auto nodeAttr = node->GetBaseAttributes();
     attributes_ = nodeAttr;
