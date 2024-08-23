@@ -14,8 +14,8 @@ export default function () {
                 >
                     <View style={{
                                     borderWidth: 1,
-                                    width: 100,
-                                    height: 100
+                                    width: 150,
+                                    height: 150
                                 }}
                     >
                         <Svg viewBox="0 0 100 100">
@@ -39,8 +39,8 @@ export default function () {
                 >
                     <View style={{
                                     borderWidth: 1,
-                                    width: 100,
-                                    height: 100
+                                    width: 150,
+                                    height: 150
                                 }}
                     >
                         <Svg viewBox="0 0 100 100">
@@ -64,8 +64,8 @@ export default function () {
                 >
                     <View style={{
                                     borderWidth: 1,
-                                    width: 100,
-                                    height: 100
+                                    width: 150,
+                                    height: 150
                                 }}
                     >
                         <Svg viewBox="0 0 100 100">
