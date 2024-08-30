@@ -38,8 +38,11 @@ void SvgNode::InitStyle(const SvgBaseAttribute &attr) {
     OnInitStyle();
     if (passStyle_) {
         for (auto &node : children_) {
-            // pass down style only if child inheritStyle_ is true
-            node->InitStyle((node->inheritStyle_) ? attributes_ : SvgBaseAttribute());
+            auto child = node.lock();
+            if (child != nullptr) {
+                // pass down style only if child inheritStyle_ is true
+                child->InitStyle((child->inheritStyle_) ? attributes_ : SvgBaseAttribute());
+            }
         }
     }
 }
@@ -47,11 +50,14 @@ void SvgNode::InitStyle(const SvgBaseAttribute &attr) {
 void SvgNode::OnDrawTraversed(OH_Drawing_Canvas *canvas) {
     auto smoothEdge = GetSmoothEdge();
     for (auto &node : children_) {
-        if (node && node->drawTraversed_) {
-            if (GreatNotEqual(smoothEdge, 0.0f)) {
-                node->SetSmoothEdge(smoothEdge);
+        auto child = node.lock();
+        if (child != nullptr) {
+            if (child && child->drawTraversed_) {
+                if (GreatNotEqual(smoothEdge, 0.0f)) {
+                    child->SetSmoothEdge(smoothEdge);
+                }
+                child->Draw(canvas);
             }
-            node->Draw(canvas);
         }
     }
 }
@@ -188,9 +194,13 @@ void SvgNode::ContextTraversal() {
     if (!attributes_.id.empty()) {
         context_->Push(attributes_.id, shared_from_this());
     }
-    for (const auto &child : children_) {
-        child->SetContext(context_);
-        child->ContextTraversal();
+    for (const auto &node : children_) {
+        auto child = node.lock();
+        if (child != nullptr) {
+            child->SetContext(context_);
+            child->ContextTraversal();
+        }
+
     }
 }
 

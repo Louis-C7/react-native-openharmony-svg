@@ -21,9 +21,13 @@ SvgSvg::SvgSvg() : SvgGroup() {}
 
 drawing::Path SvgSvg::AsPath() {
     drawing::Path path;
-    for (const auto &child : children_) {
-        auto childPath = child->AsPath();
-        path.Union(childPath);
+    for (const auto &node : children_) {
+        auto child = node.lock();
+        if (child != nullptr) {
+            auto childPath = child->AsPath();
+            path.Union(childPath);
+        }
+
     }
     return path;
 }

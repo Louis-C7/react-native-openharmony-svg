@@ -24,14 +24,12 @@ public:
     drawing::Path AsPath() override {
         drawing::Path path;
         DLOG(INFO) << "[SvgDfes:AsPath] : arrived Defs AsPath";
-        for (auto child : children_) {
-            if (!child) {
-                DLOG(INFO) << "[SvgDfes:AsPath] : childnode is a null ptr";
-            } else {
-                DLOG(INFO) << "[SvgDfes:AsPath] : get child path:";
+        for (auto &node : children_) {
+            auto child = node.lock();
+            if (child != nullptr) {
+                auto childPath = child->AsPath();
+                path.Union(childPath);
             }
-            auto childPath = child->AsPath();
-            path.Union(childPath);
         }
         return path;
     }
