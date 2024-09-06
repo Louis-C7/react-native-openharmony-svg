@@ -130,7 +130,7 @@ void SvgImage::OnDraw(OH_Drawing_Canvas *canvas) {
 
             // Draw picture by type OH_Drawing_PixelMap
             OH_Drawing_CanvasSave(canvas);
-            drawing::Rect clipRect(x, y, width, height);
+            drawing::Rect clipRect(x, y, x + width, y + height);
             OH_Drawing_CanvasClipRect(canvas, clipRect.get(), OH_Drawing_CanvasClipOp::INTERSECT, true);
             OH_Drawing_CanvasDrawPixelMapRect(canvas, ohPixelMap, srcPixelMap.get(), dstPixelMap.get(),
                                               samplingOptions);
