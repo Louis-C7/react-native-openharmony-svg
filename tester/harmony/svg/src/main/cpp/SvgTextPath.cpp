@@ -9,7 +9,7 @@ void SvgTextPath::OnDraw(OH_Drawing_Canvas *canvas) {
         InitGlyph(canvas, scale_);
     }
     for (auto const &child : children_) {
-        if (auto tSpan = std::dynamic_pointer_cast<SvgTSpan>(child)) {
+        if (auto tSpan = std::dynamic_pointer_cast<SvgTSpan>(child.lock())) {
             tSpan->SetGlyphContext(glyphCtx_);
             tSpan->SetTextPathRef(std::dynamic_pointer_cast<SvgTextPath>(shared_from_this()));
         }

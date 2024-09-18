@@ -12,18 +12,22 @@ public:
 
     drawing::Path getClipPath(drawing::Path path) {
         DLOG(INFO) << "[SvgQuote] getClipPath";
-        for (const auto &child : children_) {
-            auto childPath = child->AsPath();
-            path.AddPath(childPath);
+        for (const auto &node : children_) {
+            if (auto child = node.lock()) {
+                auto childPath = child->AsPath();
+                path.AddPath(childPath);
+            }
         }
         return path;
     }
 
     drawing::Path getClipPath(drawing::Path path, drawing::Path::OpMode op) {
         DLOG(INFO) << "[SvgQuote] getClipPath with op, op = " << op;
-        for (const auto &child : children_) {
-            auto childPath = child->AsPath();
-            path.Op(childPath, op);
+        for (const auto &node : children_) {
+            if (auto child = node.lock()) {
+                auto childPath = child->AsPath();
+                path.Op(childPath, op);
+            }
         }
         return path;
     }
