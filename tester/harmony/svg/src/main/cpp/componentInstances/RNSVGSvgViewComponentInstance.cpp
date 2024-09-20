@@ -12,6 +12,10 @@ RNSVGSvgViewComponentInstance::RNSVGSvgViewComponentInstance(Context context)
     SvgViewManager::getInstance().setSvgView(CppComponentInstance::getTag(), dynamic_pointer_cast<SvgSvg>(GetSvgNode()));
 }
 
+RNSVGSvgViewComponentInstance::~RNSVGSvgViewComponentInstance() {
+    SvgViewManager::getInstance().onDropView(CppComponentInstance::getTag());
+}
+
 void RNSVGSvgViewComponentInstance::onPropsChanged(SharedConcreteProps const &props) {
     CppComponentInstance::onPropsChanged(props);
     DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->width: " << m_layoutMetrics.frame.size.width;

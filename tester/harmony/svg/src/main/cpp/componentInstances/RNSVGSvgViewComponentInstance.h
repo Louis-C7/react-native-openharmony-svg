@@ -16,6 +16,7 @@ private:
 
 public:
     RNSVGSvgViewComponentInstance(Context context);
+    ~RNSVGSvgViewComponentInstance();
 
     // get SvgNode from childComponentInstance and set it to root_
     void onChildInserted(ComponentInstance::Shared const &childComponentInstance, std::size_t index) override {
