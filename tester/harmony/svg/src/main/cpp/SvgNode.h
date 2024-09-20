@@ -43,14 +43,8 @@ public:
 
     virtual void AppendChild(const std::shared_ptr<SvgNode> &child) { children_.emplace_back(child); }
 
-    virtual void removeChild(const std::shared_ptr<SvgNode>& child) {
-        // 查找 children_ 中与提供的 shared_ptr 匹配的 weak_ptr
-        auto it = std::find_if(children_.begin(), children_.end(),
-            [&child](const std::weak_ptr<SvgNode>& weakChild) {
-                auto lockedChild = weakChild.lock();
-                return lockedChild == child;
-            });
-
+    virtual void removeChild(const std::shared_ptr<SvgNode> &child) {
+        auto it = std::find(children_.begin(), children_.end(), child);
         if (it != children_.end()) {
             children_.erase(it);
         }
@@ -186,7 +180,7 @@ protected:
 
     std::shared_ptr<SvgContext> context_;
 
-    std::vector<std::weak_ptr<SvgNode>> children_;
+    std::vector<std::shared_ptr<SvgNode>> children_;
 
     std::string hrefClipPath_;
     std::string imagePath_;

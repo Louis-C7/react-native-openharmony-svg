@@ -15,8 +15,7 @@ void SvgGroup::OnInitStyle() {
     if (!font_) {
         InitFont(GetScale());
     }
-    for (auto &node : children_) {
-        auto child = node.lock();
+    for (auto &child : children_) {
         if (auto childG = std::dynamic_pointer_cast<FontHolderBase>(child)) {
             childG->InheritFont(font_, child->GetScale());
         }
