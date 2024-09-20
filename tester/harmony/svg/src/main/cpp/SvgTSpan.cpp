@@ -20,7 +20,7 @@ void SvgTSpan::OnDraw(OH_Drawing_Canvas *canvas) {
     }
     if (content_.empty()) {
         for (const auto &child : children_) {
-            if (auto tSpan = std::dynamic_pointer_cast<SvgTSpan>(child.lock()); tSpan) {
+            if (auto tSpan = std::dynamic_pointer_cast<SvgTSpan>(child); tSpan) {
                 tSpan->SetGlyphContext(glyphCtx_);
             }
         }
