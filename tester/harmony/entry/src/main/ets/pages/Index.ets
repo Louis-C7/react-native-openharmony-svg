@@ -82,7 +82,7 @@ struct Index {
             arkTsComponentNames: arkTsComponentNames,
           },
           initialProps: { "foo": "bar" } as Record<string, string>,
-          appKey: "app_name",
+          appKey: "svg",
           wrappedCustomRNComponentBuilder: wrappedCustomRNComponentBuilder,
           onSetUp: (rnInstance) => {
             rnInstance.enableFeatureFlag("ENABLE_RN_INSTANCE_CLEAN_UP")
