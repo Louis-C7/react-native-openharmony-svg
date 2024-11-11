@@ -19,6 +19,9 @@ public:
         UpdateElementProps(props);
         svgMarkDirty();
     }
+
+    void onCreate() {}
+
     void onChildRemoved(ComponentInstance::Shared const &childComponentInstance) override {
         svgMarkDirty();
     }
