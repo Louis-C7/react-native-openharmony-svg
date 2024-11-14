@@ -22,11 +22,11 @@ void SvgTSpan::OnDraw(OH_Drawing_Canvas *canvas) {
         for (const auto &child : children_) {
             if (auto tSpan = std::dynamic_pointer_cast<SvgTSpan>(child); tSpan) {
                 tSpan->SetGlyphContext(glyphCtx_);
+                UpdateChildTextProps(tSpan);
             }
         }
         return;
     }
-
 
     glyphCtx_->pushContext(false, shared_from_this(), x_, y_, dx_, dy_, rotate_);
     if (!textPath_) {
@@ -61,7 +61,9 @@ void SvgTSpan::DrawText(OH_Drawing_Canvas *canvas) {
 
     OH_Drawing_Font_Metrics fm;
     OH_Drawing_TextStyleGetFontMetrics(typographyForMetrics, textStyle.textStyle_.get(), &fm);
-    double dx = glyphCtx_->nextX(actualWidth) - actualWidth + glyphCtx_->nextDeltaX() +
+    // Ceil the actual width to avoid small floating-point errors and ensure proper alignment
+    // when calculating the position of the next glyph and adjusting for the text anchor.
+    double dx = glyphCtx_->nextX(actualWidth) - std::ceil(actualWidth) + glyphCtx_->nextDeltaX() +
                 getTextAnchorOffset(font_->textAnchor, actualWidth);
     // the position of typography is on the left-top
     double dy = glyphCtx_->nextY() + glyphCtx_->nextDeltaY() +
@@ -271,7 +273,7 @@ void SvgTSpan::DrawTextPath(OH_Drawing_Canvas *canvas) {
         OH_Drawing_CanvasConcatMatrix(canvas, mid.get());
         OH_Drawing_TypographyPaint(&typography, canvas, 0, 0);
         OH_Drawing_CanvasRestore(canvas);
-        
+
         OH_Drawing_DestroyFontCollection(fontCollection);
         OH_Drawing_DestroyTypographyHandler(typographyHandler);
     }
