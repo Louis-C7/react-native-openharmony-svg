@@ -14,31 +14,17 @@ import font from '@ohos.font';
 import { createRNPackages } from '../RNPackagesFactory';
 
 const arkTsComponentNames: Array<string> = ["SampleView", "GeneratedSampleView", "PropsDisplayer"];
+
 @Builder
 export function buildCustomRNComponent(ctx: ComponentBuilderContext) {
   // There seems to be a problem with the placement of ArkTS components in mixed mode. Nested Stack temporarily avoided.
-  Stack(){
+  Stack() {
   }
-  .position({x:0, y: 0})
+  .position({ x: 0, y: 0 })
 
 }
 
 const wrappedCustomRNComponentBuilder = wrapBuilder(buildCustomRNComponent)
-
-/**
- * If you want to use custom fonts, you need to register them here.
- * We should support react-native-asset to handle registering fonts automatically.
- */
-const fonts: font.FontOptions[] = [
-  {
-    familyName: 'Pacifico-Regular',
-    familySrc: '/assets/fonts/Pacifico-Regular.ttf'
-  },
-  {
-    familyName: 'StintUltraCondensed-Regular',
-    familySrc: '/assets/fonts/StintUltraCondensed-Regular.ttf'
-  }
-]
 
 @Entry
 @Component
@@ -47,14 +33,9 @@ struct Index {
   @State shouldShow: boolean = false
   private logger!: RNOHLogger
 
-
   aboutToAppear() {
     this.logger = this.rnohCoreContext!.logger.clone("Index")
     const stopTracing = this.logger.clone("aboutToAppear").startTracing()
-    for (const customFont of fonts) {
-      font.registerFont(customFont)
-    }
-
     this.shouldShow = true
     stopTracing()
   }
@@ -80,6 +61,9 @@ struct Index {
             enableBackgroundExecutor: false,
             enableCAPIArchitecture: true,
             arkTsComponentNames: arkTsComponentNames,
+            fontResourceByFontFamily: {
+              "PingFangSC-Regular": $rawfile('assets/fonts/PingFang-SC-Regular.ttf'),
+            },
           },
           initialProps: { "foo": "bar" } as Record<string, string>,
           appKey: "svg",
