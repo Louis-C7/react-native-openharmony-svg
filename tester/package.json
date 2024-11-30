@@ -5,7 +5,7 @@
   "scripts": {
     "start": "hdc rport tcp:8081 tcp:8081 && react-native start",
     "install:dev": "npm run pack:pkg && npm uninstall react-native-harmony-svg && npm i",
-    "pack:pkg": "cd ../react-native-harmony-svg && npm pack && cd ../tester",
+    "pack:pkg": "cd ../react-native-harmony-svg && npm i && npm pack && cd ../tester",
     "install:pkg": "npm run pack:pkg && npm i @react-native-oh-tpl/react-native-svg@file:../react-native-harmony-svg/react-native-oh-tpl-react-native-svg-15.0.0-0.5.9.tgz",
     "dev": "npm uninstall react-native-harmony-svg && npm run install:pkg && react-native bundle-harmony --dev --minify=false",
     "postinstall": "node ./scripts/create-build-profile",
@@ -16,7 +16,7 @@
     "@react-native-oh-tpl/react-native-svg": "file:../react-native-harmony-svg/react-native-oh-tpl-react-native-svg-15.0.0-0.5.9.tgz",
     "react": "18.2.0",
     "react-native": "0.72.5",
-    "react-native-harmony": "file:rnoh_package/react-native-harmony/rnoh-react-native-harmony-0.72.27.tgz",
+    "react-native-harmony": "npm:@react-native-oh/react-native-harmony@0.72.38",
     "react-native-qrcode-svg": "^6.2.0",
     "react-native-svg": "15.0.0"
   },
@@ -44,7 +44,10 @@
     "preset": "react-native"
   },
   "overrides": {
-    "@rnoh/react-native-harmony-cli": "file:rnoh_package/react-native-harmony-cli/rnoh-react-native-harmony-cli-0.0.26.tgz",
+    "@react-native-community/cli": "11.3.6",
     "@react-native/codegen": "0.74.0"
+  },
+  "resolutions": {
+    "@react-native-community/cli": "11.3.6"
   }
 }
