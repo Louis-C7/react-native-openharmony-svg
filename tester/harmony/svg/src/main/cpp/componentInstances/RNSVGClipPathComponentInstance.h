@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RNSVGBaseComponentInstance.h"
-#include "SvgShadowNodes.h"
+#include "SvgClipPath.h"
 
 namespace rnoh {
 namespace svg {
@@ -10,11 +10,11 @@ class RNSVGClipPathComponentInstance : public RNSVGBaseComponentInstance<faceboo
 public:
     RNSVGClipPathComponentInstance(Context context);
 
-    void UpdateElementProps(SharedConcreteProps const &props) override;
+protected:
+    void UpdateElementProps() override;
 
-    void onChildRemoved(ComponentInstance::Shared const &childComponentInstance) override {
-        OnChildRemoveCommon(std::dynamic_pointer_cast<SvgHost>(childComponentInstance));
-    }
+private:
+    std::shared_ptr<SvgClipPath> m_svgClipPath = std::make_shared<SvgClipPath>();
 };
 
 } // namespace svg

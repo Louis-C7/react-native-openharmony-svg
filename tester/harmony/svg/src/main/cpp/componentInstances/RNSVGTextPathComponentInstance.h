@@ -7,14 +7,14 @@ namespace rnoh {
 namespace svg {
 
 class RNSVGTextPathComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGTextPathShadowNode> {
-
-private:
-    std::shared_ptr<SvgTextPath> m_svgTP = std::make_shared<SvgTextPath>();
-
 public:
     RNSVGTextPathComponentInstance(Context context);
 
-    void UpdateElementProps(SharedConcreteProps const &props) override;
+protected:
+    void UpdateElementProps() override;
+
+private:
+    std::shared_ptr<SvgTextPath> m_svgTP = std::make_shared<SvgTextPath>();
 };
 
 } // namespace svg

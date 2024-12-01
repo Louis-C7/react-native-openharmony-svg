@@ -1,17 +1,20 @@
 #pragma once
+
 #include "RNSVGBaseComponentInstance.h"
+#include "SvgMask.h"
 
 namespace rnoh {
 namespace svg {
 
 class RNSVGMaskComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGMaskShadowNode> {
-
 public:
     RNSVGMaskComponentInstance(Context context);
-    void UpdateElementProps(SharedConcreteProps const &props) override;
-    void onChildRemoved(ComponentInstance::Shared const &childComponentInstance) override {
-        OnChildRemoveCommon(std::dynamic_pointer_cast<SvgHost>(childComponentInstance));
-    }
+
+protected:
+    void UpdateElementProps() override;
+
+private:
+    std::shared_ptr<SvgMask> m_svgMask = std::make_shared<SvgMask>();
 };
 
 } // namespace svg

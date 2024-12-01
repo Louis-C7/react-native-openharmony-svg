@@ -9,11 +9,11 @@ RNSVGTSpanComponentInstance::RNSVGTSpanComponentInstance(Context context)
     SetSvgNode(m_svgTSpan);
 }
 
-void RNSVGTSpanComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-    m_svgTSpan->UpdateCommonProps(props);
-    m_svgTSpan->content_ = props->content;
-    m_svgTSpan->UpdateFontProps(props);
-    m_svgTSpan->UpdateTextProps(props);
+void RNSVGTSpanComponentInstance::UpdateElementProps() {
+    m_svgTSpan->UpdateCommonProps(m_props);
+    m_svgTSpan->content_ = m_props->content;
+    m_svgTSpan->UpdateFontProps(m_props);
+    m_svgTSpan->UpdateTextProps(m_props);
 }
 
 } // namespace svg
