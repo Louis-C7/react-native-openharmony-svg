@@ -1,27 +1,24 @@
 #include "RNSVGRadialGradientComponentInstance.h"
-#include "SvgGradient.h"
 
 namespace rnoh {
 namespace svg {
 
 RNSVGRadialGradientComponentInstance::RNSVGRadialGradientComponentInstance(Context context)
     : RNSVGBaseComponentInstance(std::move(context)) {
-    SetSvgNode(std::make_shared<SvgGradient>(GradientType::RADIAL));
+    SetSvgNode(m_svgRadialGradient);
 }
 
-void RNSVGRadialGradientComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-
-    auto svgGradient = std::dynamic_pointer_cast<SvgGradient>(GetSvgNode());
-    svgGradient->UpdateHrefRenderProps(props);
-    svgGradient->SetAttrGradientUnits(props->gradientUnits); // first set attr gradientUnits
-    svgGradient->SetAttrFx(props->fx);
-    svgGradient->SetAttrFy(props->fy);
-    svgGradient->SetAttrCx(props->cx);
-    svgGradient->SetAttrCy(props->cy);
-    svgGradient->SetAttrRx(props->rx);
-    svgGradient->SetAttrRy(props->ry);
-    svgGradient->SetAttrGradient(props->gradient);
-    svgGradient->SetAttrGradientTransforms(props->gradientTransform);
+void RNSVGRadialGradientComponentInstance::UpdateElementProps() {
+    m_svgRadialGradient->UpdateHrefRenderProps(m_props);
+    m_svgRadialGradient->SetAttrGradientUnits(m_props->gradientUnits); // first set attr gradientUnits
+    m_svgRadialGradient->SetAttrFx(m_props->fx);
+    m_svgRadialGradient->SetAttrFy(m_props->fy);
+    m_svgRadialGradient->SetAttrCx(m_props->cx);
+    m_svgRadialGradient->SetAttrCy(m_props->cy);
+    m_svgRadialGradient->SetAttrRx(m_props->rx);
+    m_svgRadialGradient->SetAttrRy(m_props->ry);
+    m_svgRadialGradient->SetAttrGradient(m_props->gradient);
+    m_svgRadialGradient->SetAttrGradientTransforms(m_props->gradientTransform);
 }
 
 } // namespace svg

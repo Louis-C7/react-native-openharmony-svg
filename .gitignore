@@ -5,4 +5,4 @@ node_modules
 bundle.harmony.js
 *.code-workspace
 tester/package-lock.json
-tester/harmony/react_native_openharmony.har
+.idea

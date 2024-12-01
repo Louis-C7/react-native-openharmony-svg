@@ -1,19 +1,14 @@
 #include "RNSVGClipPathComponentInstance.h"
-#include "SvgClipPath.h"
-#include <react/renderer/core/ConcreteState.h>
 
 namespace rnoh {
 namespace svg {
 
 RNSVGClipPathComponentInstance::RNSVGClipPathComponentInstance(Context context)
     : RNSVGBaseComponentInstance(std::move(context)) {
-    SetSvgNode(std::make_shared<SvgClipPath>());
+    SetSvgNode(m_svgClipPath);
 }
 
-void RNSVGClipPathComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-    auto svgClipPath = std::dynamic_pointer_cast<SvgClipPath>(GetSvgNode());
-    svgClipPath->UpdateCommonProps(props);
-}
+void RNSVGClipPathComponentInstance::UpdateElementProps() { m_svgClipPath->UpdateCommonProps(m_props); }
 
 } // namespace svg
 } // namespace rnoh

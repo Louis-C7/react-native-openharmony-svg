@@ -1,53 +1,52 @@
 #include "RNSVGSvgViewComponentInstance.h"
-#include "SvgSvg.h"
 
 namespace rnoh {
 namespace svg {
 
 RNSVGSvgViewComponentInstance::RNSVGSvgViewComponentInstance(Context context)
     : CppComponentInstance(std::move(context)) {
-    SetSvgNode(std::make_shared<SvgSvg>());
+    SetSvgNode(m_svgSvg);
     getLocalRootArkUINode().SetSvgNode(GetSvgNode());
     GetSvgNode()->SetContext(std::make_shared<SvgContext>());
-    SvgViewManager::getInstance().setSvgView(CppComponentInstance::getTag(), dynamic_pointer_cast<SvgSvg>(GetSvgNode()));
+    SvgViewManager::getInstance().setSvgView(CppComponentInstance::getTag(), m_svgSvg);
 }
 
 RNSVGSvgViewComponentInstance::~RNSVGSvgViewComponentInstance() {
     SvgViewManager::getInstance().onDropView(CppComponentInstance::getTag());
 }
 
-void RNSVGSvgViewComponentInstance::onPropsChanged(SharedConcreteProps const &props) {
-    CppComponentInstance::onPropsChanged(props);
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->width: " << m_layoutMetrics.frame.size.width;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->height: " << m_layoutMetrics.frame.size.height;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->bbHeight: " << props->bbHeight;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->bbWidth: " << props->bbWidth;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->bbHeight: " << props->bbHeight;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->minX: " << props->minX;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->minY: " << props->minY;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->vbWidth: " << props->vbWidth;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->vbHeight: " << props->vbHeight;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->align: " << props->align;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->meetOrSlice: " << props->meetOrSlice;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->testId: " << props->testId;
-    DLOG(INFO) << "[SVG] <SVGViewComponentInstance> props->pointScaleFactor: " << m_layoutMetrics.pointScaleFactor;
-
-    auto svg = dynamic_pointer_cast<SvgSvg>(GetSvgNode());
-    svg->SetScale(m_layoutMetrics.pointScaleFactor);
-    auto tintColor = getColorFromDynamic(props->rawProps);
+void RNSVGSvgViewComponentInstance::onFinalizeUpdates() {
+    ComponentInstance::onFinalizeUpdates();
+    LOG(INFO) << "[SvgView] m_props->bbWidth: " << m_props->bbWidth << ", bbHeight: " << m_props->bbHeight
+              << ", minX: " << m_props->minX << ", minY: " << m_props->minY << ", vbWidth: " << m_props->vbWidth
+              << ", vbHeight: " << m_props->vbHeight;
+    m_svgSvg->SetScale(m_layoutMetrics.pointScaleFactor);
+    auto tintColor = getColorFromDynamic(m_props->rawProps);
     if (tintColor.has_value()) {
-        svg->GetContext()->SetSvgColor(Color::FromString(tintColor.value()));
+        m_svgSvg->GetContext()->SetSvgColor(Color::FromString(tintColor.value()));
     }
-    svg->SetVbX(props->minX);
-    svg->SetVbY(props->minY);
-    svg->SetVbWidth(props->vbWidth);
-    svg->SetVbHeight(props->vbHeight);
-    svg->SetX(0);
-    svg->SetY(0);
-    svg->SetWidth(props->bbWidth);
-    svg->SetHeight(props->bbHeight);
-    svg->SetAlign(props->align);
-    svg->SetMeetOrSlice(props->meetOrSlice);
+    m_svgSvg->SetVbX(m_props->minX);
+    m_svgSvg->SetVbY(m_props->minY);
+    m_svgSvg->SetVbWidth(m_props->vbWidth);
+    m_svgSvg->SetVbHeight(m_props->vbHeight);
+    m_svgSvg->SetX(0);
+    m_svgSvg->SetY(0);
+    m_svgSvg->SetWidth(m_props->bbWidth);
+    m_svgSvg->SetHeight(m_props->bbHeight);
+    m_svgSvg->SetAlign(m_props->align);
+    m_svgSvg->SetMeetOrSlice(m_props->meetOrSlice);
+    getLocalRootArkUINode().markDirty();
+}
+
+void RNSVGSvgViewComponentInstance::onChildInserted(ComponentInstance::Shared const &childComponentInstance,
+                                                    std::size_t index) {
+    CppComponentInstance::onChildInserted(childComponentInstance, index);
+    OnChildInsertCommon(std::dynamic_pointer_cast<SvgHost>(childComponentInstance));
+}
+
+void RNSVGSvgViewComponentInstance::onChildRemoved(ComponentInstance::Shared const &childComponentInstance) {
+    CppComponentInstance::onChildRemoved(childComponentInstance);
+    OnChildRemoveCommon(std::dynamic_pointer_cast<SvgHost>(childComponentInstance));
 }
 
 SvgArkUINode &RNSVGSvgViewComponentInstance::getLocalRootArkUINode() { return m_svgArkUINode; }
@@ -56,6 +55,22 @@ std::optional<std::string> RNSVGSvgViewComponentInstance::getColorFromDynamic(fo
     auto rawPropsColor = (value.count("color") > 0) ? std::optional(value["color"].asString()) : std::nullopt;
     return rawPropsColor;
 }
+
+bool RNSVGSvgViewComponentInstance::canHandleTouch() const {
+    if (m_props != nullptr) {
+        auto props = std::dynamic_pointer_cast<const facebook::react::RNSVGSvgViewProps>(m_props);
+        return props->pointerEvents == "auto" || props->pointerEvents == "box-only" || props->pointerEvents.size() == 0;
+    }
+    return true;
+};
+
+bool RNSVGSvgViewComponentInstance::canChildrenHandleTouch() const {
+    if (m_props != nullptr) {
+        auto props = std::dynamic_pointer_cast<const facebook::react::RNSVGSvgViewProps>(m_props);
+        return props->pointerEvents == "auto" || props->pointerEvents == "box-none" || props->pointerEvents.size() == 0;
+    }
+    return true;
+};
 
 } // namespace svg
 } // namespace rnoh

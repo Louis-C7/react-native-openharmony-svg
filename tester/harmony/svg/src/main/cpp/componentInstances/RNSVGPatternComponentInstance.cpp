@@ -1,46 +1,31 @@
 #include "RNSVGPatternComponentInstance.h"
-#include "SvgPattern.h"
 
 namespace rnoh {
 namespace svg {
 
 RNSVGPatternComponentInstance::RNSVGPatternComponentInstance(Context context)
     : RNSVGBaseComponentInstance(std::move(context)) {
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] init";
-    SetSvgNode(std::make_shared<SvgPattern>());
+    SetSvgNode(m_svgPattern);
 }
 
-void RNSVGPatternComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] x: " << props->x;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] y: " << props->y;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] width: " << props->width;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] height: " << props->height;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] patternUnits: " << props->patternUnits;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] patternContentUnits: " << props->patternContentUnits;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] minX: " << props->minX;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] minY: " << props->minY;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] vbWidth: " << props->vbWidth;
-    DLOG(INFO) << "[RNSVGPatternComponentInstance] vbHeight: " << props->vbHeight;
+void RNSVGPatternComponentInstance::UpdateElementProps() {
     // set attribute to svgPattern
-    auto svgPattern = std::dynamic_pointer_cast<SvgPattern>(GetSvgNode());
-    svgPattern->UpdateCommonProps(props);
-    svgPattern->setPatternX(StringUtils::FromString(props->x));
-    svgPattern->setPatternY(StringUtils::FromString(props->y));
-    svgPattern->setWidth(StringUtils::FromString(props->width));
-    svgPattern->setHeight(StringUtils::FromString(props->height));
-    svgPattern->setPatternUnits(props->patternUnits);
-    svgPattern->setPatternContentUnits(props->patternContentUnits);
-    svgPattern->setViewBox(Rect(props->minX, props->minY, props->vbWidth, props->vbHeight));
-    svgPattern->setmMinX(props->minX);
-    svgPattern->setmMinY(props->minY);
-    svgPattern->setmVbWidth(props->vbWidth);
-    svgPattern->setmVbHeight(props->vbHeight);
-    svgPattern->setmAlign(props->align);
-    svgPattern->setmMeetOrSlice(props->meetOrSlice);
-    svgPattern->setPatternTransforms(props->patternTransform);
+    m_svgPattern->UpdateCommonProps(m_props);
+    m_svgPattern->setPatternX(StringUtils::FromString(m_props->x));
+    m_svgPattern->setPatternY(StringUtils::FromString(m_props->y));
+    m_svgPattern->setWidth(StringUtils::FromString(m_props->width));
+    m_svgPattern->setHeight(StringUtils::FromString(m_props->height));
+    m_svgPattern->setPatternUnits(m_props->patternUnits);
+    m_svgPattern->setPatternContentUnits(m_props->patternContentUnits);
+    m_svgPattern->setViewBox(Rect(m_props->minX, m_props->minY, m_props->vbWidth, m_props->vbHeight));
+    m_svgPattern->setmMinX(m_props->minX);
+    m_svgPattern->setmMinY(m_props->minY);
+    m_svgPattern->setmVbWidth(m_props->vbWidth);
+    m_svgPattern->setmVbHeight(m_props->vbHeight);
+    m_svgPattern->setmAlign(m_props->align);
+    m_svgPattern->setmMeetOrSlice(m_props->meetOrSlice);
+    m_svgPattern->setPatternTransforms(m_props->patternTransform);
 }
-
 
 } // namespace svg
 } // namespace rnoh

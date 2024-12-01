@@ -1,33 +1,22 @@
 #include "RNSVGSymbolComponentInstance.h"
-#include "SvgSymbol.h"
 
 namespace rnoh {
 namespace svg {
 
 RNSVGSymbolComponentInstance::RNSVGSymbolComponentInstance(Context context)
     : RNSVGBaseComponentInstance(std::move(context)) {
-    DLOG(INFO) << "[RNSVGSymbolComponentInstance] init";
-    SetSvgNode(std::make_shared<SvgSymbol>());
+    SetSvgNode(m_svgSymbol);
 }
 
-void RNSVGSymbolComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-    auto svgSymbol = std::dynamic_pointer_cast<SvgSymbol>(GetSvgNode());
-    svgSymbol->UpdateCommonProps(props);
+void RNSVGSymbolComponentInstance::UpdateElementProps() {
     // set attribute to svgSymbol.
-    svgSymbol->mMinX = props->minX;
-    svgSymbol->mMinY = props->minY;
-    svgSymbol->mVbWidth = props->vbWidth;
-    svgSymbol->mVbHeight = props->vbHeight;
-    svgSymbol->mMeetOrSlice = props->meetOrSlice;
-    svgSymbol->mAlign = props->align;
-
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] minX: " << props->minX;
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] minY: " << props->minY;
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] vbWidth: " << props->vbWidth;
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] vbHeight: " << props->vbHeight;
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] mMeetOrSlice: " << props->meetOrSlice;
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] mAlign: " << props->align;
-    DLOG(INFO) << "[SvgSymbol RNSVGSymbolComponentInstance] opacity: " << props->opacity;
+    m_svgSymbol->UpdateCommonProps(m_props);
+    m_svgSymbol->mMinX = m_props->minX;
+    m_svgSymbol->mMinY = m_props->minY;
+    m_svgSymbol->mVbWidth = m_props->vbWidth;
+    m_svgSymbol->mVbHeight = m_props->vbHeight;
+    m_svgSymbol->mMeetOrSlice = m_props->meetOrSlice;
+    m_svgSymbol->mAlign = m_props->align;
 }
 
 } // namespace svg

@@ -1,31 +1,29 @@
 #include "RNSVGImageComponentInstance.h"
-#include "SvgImage.h"
 
 namespace rnoh {
 namespace svg {
 
 RNSVGImageComponentInstance::RNSVGImageComponentInstance(Context context)
     : RNSVGBaseComponentInstance(std::move(context)) {
-    SetSvgNode(std::make_shared<SvgImage>());
+    SetSvgNode(m_svgImage);
 }
 
-void RNSVGImageComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-    auto svgImage = std::dynamic_pointer_cast<SvgImage>(GetSvgNode());
+void RNSVGImageComponentInstance::UpdateElementProps() {
     if (m_deps != nullptr && !m_deps->rnInstance.expired()) {
         auto rnInstance = m_deps->rnInstance.lock();
         if (rnInstance != nullptr) {
             auto nativeResourceManager = rnInstance->getNativeResourceManager();
-            svgImage->setNativeResourceManager(nativeResourceManager);
+            m_svgImage->setNativeResourceManager(nativeResourceManager);
         }
     }
-    svgImage->UpdateCommonProps(props);
-    svgImage->SetX(props->x);
-    svgImage->SetY(props->y);
-    svgImage->SetWidth(props->width);
-    svgImage->SetHeight(props->height);
-    svgImage->SetAlign(props->align);
-    svgImage->SetMeetOrSlice(props->meetOrSlice);
-    svgImage->SetImageSource(props->src);
+    m_svgImage->UpdateCommonProps(m_props);
+    m_svgImage->SetX(m_props->x);
+    m_svgImage->SetY(m_props->y);
+    m_svgImage->SetWidth(m_props->width);
+    m_svgImage->SetHeight(m_props->height);
+    m_svgImage->SetAlign(m_props->align);
+    m_svgImage->SetMeetOrSlice(m_props->meetOrSlice);
+    m_svgImage->SetImageSource(m_props->src);
 }
 
 } // namespace svg

@@ -5,6 +5,7 @@
 #include "SvgHost.h"
 #include "RNSVGSvgViewComponentInstance.h"
 #include "utils/StringUtils.h"
+#include <glog/logging.h>
 
 namespace rnoh {
 namespace svg {
@@ -14,21 +15,28 @@ public:
     RNSVGBaseComponentInstance(ComponentInstance::Context context) : CppComponentInstance<T>(std::move(context)) {}
 
     void onPropsChanged(typename CppComponentInstance<T>::SharedConcreteProps const &props) override {
-        GetSvgNode()->SetScale(CppComponentInstance<T>::m_layoutMetrics.pointScaleFactor);
         pointerEvents_ = props->pointerEvents.size() == 0 ? "auto" : props->pointerEvents;
-        UpdateElementProps(props);
+        svgMarkDirty();
+    }
+    
+    void onFinalizeUpdates() override {
+        if (GetSvgNode()) {
+            GetSvgNode()->SetScale(CppComponentInstance<T>::m_layoutMetrics.pointScaleFactor);
+        }
+        UpdateElementProps();
         svgMarkDirty();
     }
 
     void onCreate() {}
 
     void onChildRemoved(ComponentInstance::Shared const &childComponentInstance) override {
-        svgMarkDirty();
+        CppComponentInstance<T>::onChildRemoved(childComponentInstance);
+        OnChildRemoveCommon(std::dynamic_pointer_cast<SvgHost>(childComponentInstance));
     }
 
     void onChildInserted(ComponentInstance::Shared const &childComponentInstance, std::size_t index) override {
+        CppComponentInstance<T>::onChildInserted(childComponentInstance, index);
         OnChildInsertCommon(std::dynamic_pointer_cast<SvgHost>(childComponentInstance));
-        svgMarkDirty();
     }
 
     void setLayout(facebook::react::LayoutMetrics layoutMetrics) override {
@@ -70,9 +78,6 @@ public:
             return false;
         }
         DLOG(INFO) << "[SvgTouch] name: " << CppComponentInstance<T>::getComponentName();
-        DLOG(INFO) << "[SvgTouch] point x: " << point.x << ", y: " << point.y;
-        DLOG(INFO) << "[SvgTouch] point PX x1: " << vpToPx(point.x) << ", PX y1: " << vpToPx(point.y);
-        DLOG(INFO) << "[SvgTouch] containsPoint1: " << node->AsPath().Contains(vpToPx(point.x), vpToPx(point.y));
         // For debug
         auto rect = node->AsBounds();
         DLOG(INFO) << "[SvgTouch] asBound x: " << rect.Left() << ", y: " << rect.Top() << ", width: " << rect.Width()
@@ -164,12 +169,13 @@ public:
     }
 
 protected:
-    virtual void UpdateElementProps(typename CppComponentInstance<T>::SharedConcreteProps const &props) = 0;
+    virtual void UpdateElementProps() = 0;
     SvgArkUINode &getLocalRootArkUINode() override { return getParentSvgView()->getLocalRootArkUINode(); }
 
 private:
     std::weak_ptr<RNSVGSvgViewComponentInstance> m_svgViewComponentInstance;
     std::string pointerEvents_ = "auto";
+    
 };
 
 } // namespace svg

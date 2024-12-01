@@ -7,7 +7,7 @@ set(WITH_HITRACE_SYSTRACE 1)
 add_compile_definitions(WITH_HITRACE_SYSTRACE)
 
 add_subdirectory("${RNOH_CPP_DIR}" ./rn)
-add_subdirectory("${OH_MODULES_DIR}/@rnoh/react-native-openharmony-svg/src/main/cpp" ./svg)
+add_subdirectory("../../../../svg/src/main/cpp" ./svg)
 add_library(rnoh_app SHARED
     "./PackageProvider.cpp"
     "${RNOH_CPP_DIR}/RNOHAppNapiBridge.cpp"

@@ -1,31 +1,24 @@
 #include "RNSVGMaskComponentInstance.h"
-#include "SvgMask.h"
 
 namespace rnoh {
 namespace svg {
 
 RNSVGMaskComponentInstance::RNSVGMaskComponentInstance(Context context)
     : RNSVGBaseComponentInstance(std::move(context)) {
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] RNSVGMaskComponentInstance: ";
-    SetSvgNode(std::make_shared<SvgMask>());
+    SetSvgNode(m_svgMask);
 }
 
-void RNSVGMaskComponentInstance::UpdateElementProps(SharedConcreteProps const &props) {
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] onPropsChanged x: " << props->x;
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] onPropsChanged y: " << props->y;
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] onPropsChanged height: " << props->height;
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] onPropsChanged width: " << props->width;
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] onPropsChanged maskUnits: " << props->maskUnits;
-    DLOG(INFO) << "[RNSVGMaskComponentInstance] onPropsChanged maskContentUnits: " << props->maskContentUnits;
-    auto svgMask = std::dynamic_pointer_cast<SvgMask>(GetSvgNode());
-    svgMask->UpdateCommonProps(props);
+void RNSVGMaskComponentInstance::UpdateElementProps() {
+    DLOG(INFO) << "[RNSVGMaskCI] onPropsChanged maskUnits: " << m_props->maskUnits;
+    DLOG(INFO) << "[RNSVGMaskCI] onPropsChanged maskContentUnits: " << m_props->maskContentUnits;
+    m_svgMask->UpdateCommonProps(m_props);
     // set attribute to svgMask.
-    svgMask->setMaskUnits(props->maskUnits);
-    svgMask->setMaskContentUnits(props->maskContentUnits);
-    svgMask->setMaskX(props->x);
-    svgMask->setMaskY(props->y);
-    svgMask->setMaskHeight(props->height);
-    svgMask->setMaskWidth(props->width);
+    m_svgMask->setMaskUnits(m_props->maskUnits);
+    m_svgMask->setMaskContentUnits(m_props->maskContentUnits);
+    m_svgMask->setMaskX(m_props->x);
+    m_svgMask->setMaskY(m_props->y);
+    m_svgMask->setMaskHeight(m_props->height);
+    m_svgMask->setMaskWidth(m_props->width);
 }
 
 } // namespace svg
