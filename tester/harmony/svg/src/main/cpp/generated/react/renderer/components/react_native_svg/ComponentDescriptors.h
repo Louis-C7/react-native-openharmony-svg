@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "SvgShadowNodes.h"
+#include <react/renderer/components/react_native_svg/ShadowNodes.h>
 #include <react/renderer/core/ConcreteComponentDescriptor.h>
 
 namespace facebook {

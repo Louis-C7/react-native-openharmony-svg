@@ -8,8 +8,8 @@
 #pragma once
 
 #include <jsi/jsi.h>
-#include <EventEmitters.h>
-#include <Props.h>
+#include <react/renderer/components/react_native_svg/EventEmitters.h>
+#include <react/renderer/components/react_native_svg/Props.h>
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
 #include <react/renderer/imagemanager/ImageManager.h>
 #include <react/renderer/imagemanager/primitives.h>

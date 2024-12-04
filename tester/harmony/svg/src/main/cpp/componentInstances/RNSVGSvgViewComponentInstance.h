@@ -3,7 +3,7 @@
 #include "RNOH/CppComponentInstance.h"
 #include <folly/dynamic.h>
 #include "SvgArkUINode.h"
-#include "SvgShadowNodes.h"
+#include <react/renderer/components/react_native_svg/ShadowNodes.h>
 #include "SvgViewManager.h"
 #include "SvgSvg.h"
 

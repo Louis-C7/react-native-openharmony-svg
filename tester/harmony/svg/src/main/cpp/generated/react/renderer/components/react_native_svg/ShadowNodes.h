@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include "EventEmitters.h"
-#include "Props.h"
-#include "States.h"
+#include <react/renderer/components/react_native_svg/EventEmitters.h>
+#include <react/renderer/components/react_native_svg/Props.h>
+#include <react/renderer/components/react_native_svg/States.h>
 #include <react/renderer/components/view/ConcreteViewShadowNode.h>
 #include <jsi/jsi.h>
 
