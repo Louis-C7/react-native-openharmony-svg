@@ -1,12 +1,15 @@
-        
-#pragma once
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
 
-// This file was generated.
 #pragma once
 
 #include <ReactCommon/TurboModule.h>
 #include <react/bridging/Bridging.h>
 #include "RNOH/ArkTSTurboModule.h"
+
 using namespace facebook;
 
 namespace rnoh {

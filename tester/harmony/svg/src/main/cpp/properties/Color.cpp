@@ -1,10 +1,34 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ *
+ * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * the Apache License, Version 2.0. Specifically:
+ * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy
+ * of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+// from ArkUI "frameworks/core/components/common/properties/color.cpp"
 #pragma once
+
 #include <cstdint>
 #include <regex>
 #include "Color.h"
 #include "utils/SvgUtils.h"
 #include "utils/StringUtils.h"
 #include "utils/LinearMap.h"
+
 namespace rnoh {
 namespace svg {
 
@@ -389,27 +413,6 @@ bool Color::MatchColorWithRGBA(const std::string& colorStr, Color& color)
 
     return false;
 }
-
-// bool Color::MatchColorSpecialString(const std::string& colorStr, Color& color)
-// {
-//     static const LinearMapNode<Color> colorTable[] = {
-//         { "black", Color(0xff000000) },
-//         { "blue", Color(0xff0000ff) },
-//         { "gray", Color(0xffc0c0c0) },
-//         { "green", Color(0xff00ff00) },
-//         { "red", Color(0xffff0000) },
-//         { "transparent", Color(0x00000000) },
-//         { "white", Color(0xffffffff) },
-//     };
-//
-//     int64_t colorIndex = BinarySearchFindIndex(colorTable, ArraySize(colorTable), colorStr.c_str());
-//     if (colorIndex != -1) {
-//         color = colorTable[colorIndex].value;
-//         return true;
-//     }
-//
-//     return false;
-// }
 
 bool Color::ParseUintColorString(const std::string& colorStr, Color& color, const Color& defaultColor)
 {

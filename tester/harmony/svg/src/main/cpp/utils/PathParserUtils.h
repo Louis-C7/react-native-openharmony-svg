@@ -1,8 +1,14 @@
+/*
+ * Copyright 2015-2016 The react-native-svg Authors. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ */
+
 #pragma once
+
 #include "SvgMarkerPositionUtils.h"
 #include "drawing/Path.h"
-#include <native_drawing/drawing_path.h>
-#include <native_drawing/drawing_types.h>
 #include <vector>
 #include <string>
 
@@ -13,7 +19,7 @@ class PathParserUtils {
 public:
     float mScale;
     std::vector<PathElement> elements;
-    
+
     drawing::Path parse(std::string d);
 
 private:

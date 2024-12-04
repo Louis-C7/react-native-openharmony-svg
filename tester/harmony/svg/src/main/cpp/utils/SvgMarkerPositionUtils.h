@@ -1,11 +1,10 @@
-//
-// Created on 2024/5/9.
-//
-// Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// please include "napi/native_api.h".
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
 
-#ifndef HARMONY_SVGMARKERPOSITIONUTIL_H
-#define HARMONY_SVGMARKERPOSITIONUTIL_H
+#pragma once
 
 #include <cmath>
 #include <vector>
@@ -193,5 +192,3 @@ namespace SvgMarkerPositionUtils{
 
 } // namespace svg
 } // namespace rnoh
-
-#endif //HARMONY_SVGMARKERPOSITIONUTIL_H

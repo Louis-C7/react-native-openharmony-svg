@@ -1,11 +1,15 @@
+/*
+ * Copyright 2015-2016 The react-native-svg Authors. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ */
+
 #pragma once
 
 #include <vector>
-#include <optional>
 #include <memory>
-#include <unordered_map>
 #include "properties/Dimension.h"
-#include "utils/SvgUtils.h"
 #include "SvgNode.h"
 
 namespace rnoh {
@@ -57,21 +61,19 @@ private:
 
     void reset();
 
-    void pushNode(const std::shared_ptr<SvgNode> &node) {
-        mTop++;
-    }
+    void pushNode(const std::shared_ptr<SvgNode> &node) { mTop++; }
 
 public:
     GlyphContext(float scale, float width, float height);
 
-    void pushContext(const std::shared_ptr<SvgNode>& node) {
+    void pushContext(const std::shared_ptr<SvgNode> &node) {
         pushNode(node);
         pushIndices();
     }
 
     using DimensionArray = const std::vector<Dimension> &;
-    void pushContext(bool reset, const std::shared_ptr<SvgNode>& node, DimensionArray x, DimensionArray y, DimensionArray deltaX,
-                     DimensionArray deltaY, DimensionArray rotate);
+    void pushContext(bool reset, const std::shared_ptr<SvgNode> &node, DimensionArray x, DimensionArray y,
+                     DimensionArray deltaX, DimensionArray deltaY, DimensionArray rotate);
 
     void popContext();
 
@@ -92,7 +94,7 @@ public:
     double nextRotation();
 
     float getWidth() { return mWidth; }
-    
+
 
     float getHeight() { return mHeight; }
 };

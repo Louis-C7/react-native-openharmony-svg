@@ -1,11 +1,13 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
+
 #include "SvgSvg.h"
 #include "properties/Size.h"
-#include "utils/LinearMap.h"
 #include "utils/StringUtils.h"
-#include "utils/SvgUtils.h"
 #include "properties/ViewBox.h"
-#include <string>
-#include <vector>
 #include <native_drawing/drawing_rect.h>
 
 namespace rnoh {
