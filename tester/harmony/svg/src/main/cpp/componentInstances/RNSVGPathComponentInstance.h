@@ -16,6 +16,7 @@ protected:
 private:
     std::shared_ptr<SvgPath> m_svgPath = std::make_shared<SvgPath>();
     std::string m_cacheD;
+    Float m_cacheScale;
 };
 
 } // namespace svg
