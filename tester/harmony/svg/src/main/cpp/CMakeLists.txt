@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.13)
 set(CMAKE_VERBOSE_MAKEFILE on)
 
+set(rnoh_svg_generated_dir "${CMAKE_CURRENT_SOURCE_DIR}/generated")
+file(GLOB_RECURSE rnoh_svg_generated_SRC "${rnoh_svg_generated_dir}/**/*.cpp")
 file(GLOB rnoh_svg_SRC CONFIGURE_DEPENDS
     *.cpp
     componentInstances/*.cpp
-    componentBinders/*.cpp
     drawing/*.cpp
-    napiBinders/*.cpp
     properties/*.cpp
     turboModules/*.cpp
     utils/*.cpp
     svgImage/*.cpp
     )
-add_library(rnoh_svg SHARED ${rnoh_svg_SRC})
-target_include_directories(rnoh_svg PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(rnoh_svg SHARED ${rnoh_svg_SRC} ${rnoh_svg_generated_SRC})
+target_include_directories(rnoh_svg PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${rnoh_svg_generated_dir})
 target_link_libraries(rnoh_svg PUBLIC rnoh)
 target_link_libraries(rnoh_svg PUBLIC libimage_source.so)
 target_link_libraries(rnoh_svg PUBLIC libpixelmap.so)

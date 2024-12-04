@@ -8,7 +8,7 @@
 #include "properties/Decoration.h"
 #include "properties/Dimension.h"
 #include "properties/Size.h"
-#include "Props.h"
+#include <react/renderer/components/react_native_svg/Props.h>
 #include "drawing/Path.h"
 #include "utils/StringUtils.h"
 #include "utils/SvgAttributesParser.h"
