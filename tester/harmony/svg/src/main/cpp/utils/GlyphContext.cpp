@@ -1,14 +1,23 @@
+/*
+ * Copyright 2015-2016 The react-native-svg Authors. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ */
+
 #include "GlyphContext.h"
+
 namespace rnoh {
 namespace svg {
 
-void GlyphContext::pushContext(bool reset, const std::shared_ptr<SvgNode>& node, DimensionArray x, DimensionArray y,
+void GlyphContext::pushContext(bool reset, const std::shared_ptr<SvgNode> &node, DimensionArray x, DimensionArray y,
                                DimensionArray deltaX, DimensionArray deltaY, DimensionArray rotate) {
     if (reset) {
         this->reset();
     }
 
-    DLOG(INFO) << "GLYPH PUSHING" << " mTop = " << mTop << " node = " << node;
+    DLOG(INFO) << "GLYPH PUSHING"
+               << " mTop = " << mTop << " node = " << node;
     pushNode(node);
 
     if (!x.empty()) {

@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
 
 #pragma once
 
@@ -5,8 +10,6 @@
 #include <react/bridging/Bridging.h>
 #include "RNOH/ArkTSTurboModule.h"
 #include "SvgViewManager.h"
-#include "utils/StringUtils.h"
-#include "native_drawing/drawing_canvas.h"
 #include <optional>
 
 using namespace facebook;

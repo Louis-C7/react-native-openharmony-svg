@@ -1,3 +1,10 @@
+/*
+ * Copyright 2015-2016 The react-native-svg Authors. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ */
+
 #include "PathParserUtils.h"
 #include <cmath>
 #include <stdexcept>

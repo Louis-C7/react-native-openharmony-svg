@@ -1,7 +1,5 @@
-#include "SvgText.h"
 #include <memory>
-#include <native_drawing/drawing_font_collection.h>
-
+#include "SvgText.h"
 #include "drawing/TextStyle.h"
 #include "drawing/TypographyStyle.h"
 #include "SvgTSpan.h"

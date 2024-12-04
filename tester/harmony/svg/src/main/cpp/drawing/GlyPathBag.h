@@ -1,8 +1,16 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
+
 #pragma once
+
 #include <unordered_map>
 #include <vector>
 #include "drawing/Path.h"
 #include "drawing/Pen.h"
+
 namespace rnoh::drawing {
 
 class GlyPathBag {

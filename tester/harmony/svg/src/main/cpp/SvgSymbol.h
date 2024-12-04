@@ -1,15 +1,14 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
+
 #pragma once
 
-//
-// Created on 2024/5/12.
-//
-// Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// please include "napi/native_api.h".
-
-#ifndef HARMONY_SVGSYMBOL_H
-#define HARMONY_SVGSYMBOL_H
 #include "SvgGraphic.h"
 #include "properties/ViewBox.h"
+
 namespace rnoh {
 namespace svg {
 
@@ -36,4 +35,3 @@ public:
 
 } // namespace svg
 } // namespace rnoh
-#endif // HARMONY_SVGSYMBOL_H

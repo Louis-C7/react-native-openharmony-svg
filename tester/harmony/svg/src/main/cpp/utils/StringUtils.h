@@ -1,3 +1,24 @@
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ *
+ * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * the Apache License, Version 2.0. Specifically:
+ * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy
+ * of the License at:
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
 // from ArkUI "frameworks/base/utils/string_utils.h"
 #pragma once
 
@@ -27,32 +48,24 @@ extern const std::u32string DEFAULT_U32STRING;
 constexpr int32_t TEXT_CASE_LOWERCASE = 1;
 constexpr int32_t TEXT_CASE_UPPERCASE = 2;
 constexpr double PERCENT_VALUE = 100.0;
-constexpr double DEGREES_VALUE = 360.0; // one turn means 360 deg
-constexpr double GRADIANS_VALUE = 400.0; // one turn means 400 grad
+constexpr double DEGREES_VALUE = 360.0;    // one turn means 360 deg
+constexpr double GRADIANS_VALUE = 400.0;   // one turn means 400 grad
 constexpr double RADIANS_VALUE = 2 * M_PI; // one turn means 2*pi rad
 const char ELLIPSIS[] = "...";
 
 
-inline bool NotInUtf16Bmp(char16_t c)
-{
-    return (c & 0xF800) == 0xD800;
-}
+inline bool NotInUtf16Bmp(char16_t c) { return (c & 0xF800) == 0xD800; }
 
-inline bool NotInBmp(wchar_t ch)
-{
-    return ch >= 0xD800 && ch <= 0xDBFF;
-}
+inline bool NotInBmp(wchar_t ch) { return ch >= 0xD800 && ch <= 0xDBFF; }
 
-inline bool IsNumber(const std::string& value)
-{
+inline bool IsNumber(const std::string &value) {
     if (value.empty()) {
         return false;
     }
     return std::all_of(value.begin(), value.end(), [](char i) { return isdigit(i); });
 }
 
-inline void ReplaceSpace(std::string& data)
-{
+inline void ReplaceSpace(std::string &data) {
     bool isFirstSpace = true;
     auto iter = data.begin();
     while (iter != data.end()) {
@@ -72,9 +85,8 @@ inline void ReplaceSpace(std::string& data)
     }
 }
 
-inline void ReplaceTabAndNewLine(std::string& data)
-{
-    for (auto& i : data) {
+inline void ReplaceTabAndNewLine(std::string &data) {
+    for (auto &i : data) {
         if (i == '\r' || i == '\n') {
             i = ' ';
         }
@@ -82,32 +94,30 @@ inline void ReplaceTabAndNewLine(std::string& data)
     ReplaceSpace(data);
 }
 
-inline std::string RestoreEscape(const std::string& src)
-{
+inline std::string RestoreEscape(const std::string &src) {
     std::string res;
     for (auto &c : src) {
         switch (c) {
-            case '\n':
-                res += "\\n";
-                break;
-            case '\r':
-                res += "\\r";
-                break;
-            case '\t':
-                res += "\\t";
-                break;
-            default:
-                res.push_back(c);
-                break;
+        case '\n':
+            res += "\\n";
+            break;
+        case '\r':
+            res += "\\r";
+            break;
+        case '\t':
+            res += "\\t";
+            break;
+        default:
+            res.push_back(c);
+            break;
         }
     }
     return res;
 }
 
-inline int32_t StringToInt(const std::string& value)
-{
+inline int32_t StringToInt(const std::string &value) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     int64_t result = std::strtol(value.c_str(), &pEnd, 10);
     if (pEnd == value.c_str() || (result < INT_MIN || result > INT_MAX) || errno == ERANGE) {
         return 0;
@@ -116,10 +126,9 @@ inline int32_t StringToInt(const std::string& value)
     }
 }
 
-inline int64_t StringToLongInt(const std::string& value, int64_t defaultErr = 0)
-{
+inline int64_t StringToLongInt(const std::string &value, int64_t defaultErr = 0) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     int64_t result = std::strtoll(value.c_str(), &pEnd, 10);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return defaultErr;
@@ -128,10 +137,9 @@ inline int64_t StringToLongInt(const std::string& value, int64_t defaultErr = 0)
     }
 }
 
-inline uint64_t StringToLongUint(const std::string& value, uint64_t defaultErr = 0)
-{
+inline uint64_t StringToLongUint(const std::string &value, uint64_t defaultErr = 0) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     uint64_t result = std::strtoull(value.c_str(), &pEnd, 10);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return defaultErr;
@@ -140,10 +148,9 @@ inline uint64_t StringToLongUint(const std::string& value, uint64_t defaultErr =
     }
 }
 
-inline uint32_t StringToUintCheck(const std::string& value, uint32_t defaultErr = 0)
-{
+inline uint32_t StringToUintCheck(const std::string &value, uint32_t defaultErr = 0) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     uint64_t result = std::strtoull(value.c_str(), &pEnd, 10);
     if ((pEnd == value.c_str()) || ((pEnd != nullptr) && (*pEnd != '\0')) || result > UINT32_MAX || errno == ERANGE) {
         return defaultErr;
@@ -152,10 +159,9 @@ inline uint32_t StringToUintCheck(const std::string& value, uint32_t defaultErr 
     }
 }
 
-inline uint32_t StringToUint(const std::string& value, uint32_t defaultErr = 0)
-{
+inline uint32_t StringToUint(const std::string &value, uint32_t defaultErr = 0) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     uint64_t result = std::strtoull(value.c_str(), &pEnd, 10);
     if (pEnd == value.c_str() || result > UINT32_MAX || errno == ERANGE) {
         return defaultErr;
@@ -165,9 +171,8 @@ inline uint32_t StringToUint(const std::string& value, uint32_t defaultErr = 0)
 }
 
 // generic string to double value method without success check
-inline double StringToDouble(const std::string& value)
-{
-    char* pEnd = nullptr;
+inline double StringToDouble(const std::string &value) {
+    char *pEnd = nullptr;
     errno = 0;
     double result = std::strtod(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
@@ -177,10 +182,9 @@ inline double StringToDouble(const std::string& value)
     }
 }
 // string to double method with success check, and support for parsing number string with percentage case
-inline bool StringToDouble(const std::string& value, double& result)
-{
+inline bool StringToDouble(const std::string &value, double &result) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     double res = std::strtod(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return false;
@@ -196,10 +200,9 @@ inline bool StringToDouble(const std::string& value, double& result)
     return false;
 }
 
-inline float StringToFloat(const std::string& value)
-{
+inline float StringToFloat(const std::string &value) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     float result = std::strtof(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return 0.0f;
@@ -234,14 +237,13 @@ static Dimension FromString(const std::string &str) {
     return Dimension(value, unit);
 };
 
-static Dimension StringToDimensionWithUnit(const std::string& value, DimensionUnit defaultUnit = DimensionUnit::PX,
-    float defaultValue = 0.0f, bool isCalc = false)
-{
+static Dimension StringToDimensionWithUnit(const std::string &value, DimensionUnit defaultUnit = DimensionUnit::PX,
+                                           float defaultValue = 0.0f, bool isCalc = false) {
     errno = 0;
     if (std::strcmp(value.c_str(), "auto") == 0) {
         return Dimension(defaultValue, DimensionUnit::AUTO);
     }
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     double result = std::strtod(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return Dimension(defaultValue, defaultUnit);
@@ -286,8 +288,7 @@ static Dimension StringToDimensionWithUnit(const std::string& value, DimensionUn
 //     }
 // }
 
-inline Dimension StringToDimension(const std::string& value, bool useVp = false)
-{
+inline Dimension StringToDimension(const std::string &value, bool useVp = false) {
     return StringToDimensionWithUnit(value, useVp ? DimensionUnit::VP : DimensionUnit::PX);
 }
 
@@ -303,15 +304,15 @@ inline Dimension StringToDimension(const std::string& value, bool useVp = false)
 //     return StringToDimensionWithUnit(value, useVp ? DimensionUnit::VP : DimensionUnit::PX);
 // }
 
-static bool StringToDimensionWithUnitNG(const std::string& value, Dimension& dimensionResult,
-    DimensionUnit defaultUnit = DimensionUnit::PX, float defaultValue = 0.0f, bool isCalc = false)
-{
+static bool StringToDimensionWithUnitNG(const std::string &value, Dimension &dimensionResult,
+                                        DimensionUnit defaultUnit = DimensionUnit::PX, float defaultValue = 0.0f,
+                                        bool isCalc = false) {
     errno = 0;
     if (std::strcmp(value.c_str(), "auto") == 0) {
         dimensionResult = Dimension(defaultValue, DimensionUnit::AUTO);
         return true;
     }
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     double result = std::strtod(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
         dimensionResult = Dimension(defaultValue, defaultUnit);
@@ -356,21 +357,8 @@ static bool StringToDimensionWithUnitNG(const std::string& value, Dimension& dim
     return true;
 }
 
-// inline bool StringToCalcDimensionNG(
-//     const std::string& value, CalcDimension& result, bool useVp = false,
-//     DimensionUnit defaultUnit = DimensionUnit::PX)
-// {
-//     if (value.find("calc") != std::string::npos) {
-//         result = CalcDimension(value, DimensionUnit::CALC);
-//         return true;
-//     } else {
-//         return StringToDimensionWithUnitNG(value, result, useVp ? DimensionUnit::VP : defaultUnit);
-//     }
-// }
-
-inline std::string ReplaceChar(std::string str, char old_char, char new_char)
-{
-    for (char& it : str) {
+inline std::string ReplaceChar(std::string str, char old_char, char new_char) {
+    for (char &it : str) {
         if (it == old_char) {
             it = new_char;
         }
@@ -378,12 +366,11 @@ inline std::string ReplaceChar(std::string str, char old_char, char new_char)
     return str;
 }
 
-inline double StringToDegree(const std::string& value)
-{
+inline double StringToDegree(const std::string &value) {
     // https://developer.mozilla.org/zh-CN/docs/Web/CSS/angle
 
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     double result = std::strtod(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return 0.0;
@@ -402,10 +389,9 @@ inline double StringToDegree(const std::string& value)
 }
 
 // StringToDegree with check. If the string is valid, change result and return true, otherwise return false.
-inline bool StringToDegree(const std::string& value, double& result)
-{
+inline bool StringToDegree(const std::string &value, double &result) {
     errno = 0;
-    char* pEnd = nullptr;
+    char *pEnd = nullptr;
     double temp = std::strtod(value.c_str(), &pEnd);
     if (pEnd == value.c_str() || errno == ERANGE) {
         return false;
@@ -434,10 +420,9 @@ inline bool StringToDegree(const std::string& value, double& result)
     return false;
 }
 
-template<class T>
-inline void StringSplitter(
-    const std::string& source, char delimiter, T (*func)(const std::string&), std::vector<T>& out)
-{
+template <class T>
+inline void StringSplitter(const std::string &source, char delimiter, T (*func)(const std::string &),
+                           std::vector<T> &out) {
     out.erase(out.begin(), out.end());
 
     if (source.empty()) {
@@ -461,8 +446,7 @@ inline void StringSplitter(
     }
 }
 
-inline bool ParseStringToArray(const std::string& input, std::vector<float>& output)
-{
+inline bool ParseStringToArray(const std::string &input, std::vector<float> &output) {
     std::istringstream iss(StringUtils::ReplaceChar(input, ',', ' '));
     std::string token;
 
@@ -477,43 +461,37 @@ inline bool ParseStringToArray(const std::string& input, std::vector<float>& out
     return true;
 }
 
-inline void StringSplitter(const std::string& source, char delimiter, std::vector<std::string>& out)
-{
-    using Func = std::string (*)(const std::string&);
-    Func func = [](const std::string& value) { return value; };
+inline void StringSplitter(const std::string &source, char delimiter, std::vector<std::string> &out) {
+    using Func = std::string (*)(const std::string &);
+    Func func = [](const std::string &value) { return value; };
     StringSplitter(source, delimiter, func, out);
 }
 
-inline void StringSplitter(const std::string& source, char delimiter, std::vector<double>& out)
-{
-    using Func = double (*)(const std::string&);
-    Func func = [](const std::string& value) { return StringToDouble(value); };
+inline void StringSplitter(const std::string &source, char delimiter, std::vector<double> &out) {
+    using Func = double (*)(const std::string &);
+    Func func = [](const std::string &value) { return StringToDouble(value); };
     StringSplitter(source, delimiter, func, out);
 }
 
-inline void StringSplitter(const std::string& source, char delimiter, std::vector<float>& out)
-{
-    using Func = float (*)(const std::string&);
-    Func func = [](const std::string& value) { return StringToFloat(value); };
+inline void StringSplitter(const std::string &source, char delimiter, std::vector<float> &out) {
+    using Func = float (*)(const std::string &);
+    Func func = [](const std::string &value) { return StringToFloat(value); };
     StringSplitter(source, delimiter, func, out);
 }
 
-inline void StringSplitter(const std::string& source, char delimiter, std::vector<int>& out)
-{
-    using Func = int32_t (*)(const std::string&);
-    Func func = [](const std::string& value) { return StringToInt(value); };
+inline void StringSplitter(const std::string &source, char delimiter, std::vector<int> &out) {
+    using Func = int32_t (*)(const std::string &);
+    Func func = [](const std::string &value) { return StringToInt(value); };
     StringSplitter(source, delimiter, func, out);
 }
 
-inline void StringSplitter(const std::string& source, char delimiter, std::vector<Dimension>& out)
-{
-    using Func = Dimension (*)(const std::string&);
-    Func func = [](const std::string& value) { return StringToDimension(value); };
+inline void StringSplitter(const std::string &source, char delimiter, std::vector<Dimension> &out) {
+    using Func = Dimension (*)(const std::string &);
+    Func func = [](const std::string &value) { return StringToDimension(value); };
     StringSplitter(source, delimiter, func, out);
 }
 
-inline std::string DoubleToString(double value, int32_t precision = 2)
-{
+inline std::string DoubleToString(double value, int32_t precision = 2) {
     std::ostringstream result;
     result.precision(precision);
     if (NearEqual(value, Infinity<double>())) {
@@ -524,13 +502,11 @@ inline std::string DoubleToString(double value, int32_t precision = 2)
     return result.str();
 }
 
-inline void DeleteAllMark(std::string& str, const char mark)
-{
+inline void DeleteAllMark(std::string &str, const char mark) {
     str.erase(std::remove(str.begin(), str.end(), mark), str.end());
 }
 
-inline std::string TrimStr(const std::string& str, char cTrim = ' ')
-{
+inline std::string TrimStr(const std::string &str, char cTrim = ' ') {
     auto firstPos = str.find_first_not_of(cTrim);
     if (firstPos == std::string::npos) {
         return str;
@@ -539,8 +515,7 @@ inline std::string TrimStr(const std::string& str, char cTrim = ' ')
     return str.substr(firstPos, endPos - firstPos + 1);
 }
 
-inline void TrimStrLeadingAndTrailing(std::string& str, char cTrim = ' ')
-{
+inline void TrimStrLeadingAndTrailing(std::string &str, char cTrim = ' ') {
     auto firstIndexNotOfSpace = str.find_first_not_of(" ");
     if (firstIndexNotOfSpace == std::string::npos) {
         str = "";
@@ -555,9 +530,8 @@ inline void TrimStrLeadingAndTrailing(std::string& str, char cTrim = ' ')
     str.erase(lastIndexNotOfSpace + 1);
 }
 
-inline void SplitStr(
-    const std::string& str, const std::string& sep, std::vector<std::string>& out, bool needTrim = true)
-{
+inline void SplitStr(const std::string &str, const std::string &sep, std::vector<std::string> &out,
+                     bool needTrim = true) {
     out.erase(out.begin(), out.end());
 
     if (str.empty() || sep.empty()) {
@@ -582,8 +556,8 @@ inline void SplitStr(
     }
 }
 
-inline void SplitStr(const std::string& str, const std::string& sep, std::vector<Dimension>& out, bool needTrim = true)
-{
+inline void SplitStr(const std::string &str, const std::string &sep, std::vector<Dimension> &out,
+                     bool needTrim = true) {
     out.erase(out.begin(), out.end());
     if (str.empty() || sep.empty()) {
         return;
@@ -611,67 +585,62 @@ inline void SplitStr(const std::string& str, const std::string& sep, std::vector
 
 // const std::string ACE_EXPORT FormatString(const char* fmt, ...);
 
-inline bool StartWith(const std::string& dst, const std::string& prefix)
-{
+inline bool StartWith(const std::string &dst, const std::string &prefix) {
     return dst.compare(0, prefix.size(), prefix) == 0;
 }
 
-inline bool StartWith(const std::string& str, const char* prefix, size_t prefixLen)
-{
+inline bool StartWith(const std::string &str, const char *prefix, size_t prefixLen) {
     return ((str.length() >= prefixLen) && (str.compare(0, prefixLen, prefix) == 0));
 }
 
-inline bool EndWith(const std::string& dst, const std::string& suffix)
-{
+inline bool EndWith(const std::string &dst, const std::string &suffix) {
     return (dst.size() >= suffix.size()) && dst.compare(dst.size() - suffix.size(), suffix.size(), suffix) == 0;
 }
 
-inline bool EndWith(const std::string& str, const char* suffix, size_t suffixLen)
-{
+inline bool EndWith(const std::string &str, const char *suffix, size_t suffixLen) {
     size_t len = str.length();
     return ((len >= suffixLen) && (str.compare(len - suffixLen, suffixLen, suffix) == 0));
 }
 
-inline void TransformStrCase(std::string& str, int32_t textCase)
-{
+inline void TransformStrCase(std::string &str, int32_t textCase) {
     if (str.empty()) {
         return;
     }
 
     switch (textCase) {
-        case TEXT_CASE_LOWERCASE:
-            transform(str.begin(), str.end(), str.begin(), ::tolower);
-            break;
-        case TEXT_CASE_UPPERCASE:
-            transform(str.begin(), str.end(), str.begin(), ::toupper);
-            break;
-        default:
-            break;
+    case TEXT_CASE_LOWERCASE:
+        transform(str.begin(), str.end(), str.begin(), ::tolower);
+        break;
+    case TEXT_CASE_UPPERCASE:
+        transform(str.begin(), str.end(), str.begin(), ::toupper);
+        break;
+    default:
+        break;
     }
 }
 
-bool IsAscii(const std::string& str);
+bool IsAscii(const std::string &str);
 
 inline std::vector<double> stringVectorToDoubleVector(const std::vector<std::string> &stringVec) {
     std::vector<double> doubleVec;
     doubleVec.reserve(stringVec.size()); // 预分配内存以提高效率
     for (const std::string &str : stringVec) {
-            auto value = StringToDouble(str);
-            doubleVec.push_back(vpToPx(value));
+        auto value = StringToDouble(str);
+        doubleVec.push_back(vpToPx(value));
     }
     return doubleVec;
 }
 
-inline std::string doubleVectorToString(const std::vector<double>& doubleVec) {
+inline std::string doubleVectorToString(const std::vector<double> &doubleVec) {
     std::ostringstream oss;
     for (const double &num : doubleVec) {
-            oss << num << ", "; // 将每个元素转换为字符串并拼接到流中
+        oss << num << ", "; // 将每个元素转换为字符串并拼接到流中
     }
     return oss.str(); // 将流中的内容转换为字符串并返回
 }
-std::string base64_encode(unsigned char const* bytes_to_encode, size_t in_len, bool url = false) ;
+std::string base64_encode(unsigned char const *bytes_to_encode, size_t in_len, bool url = false);
 std::string bitmapToBase64(OH_Drawing_Bitmap *bitmap);
-}
+} // namespace StringUtils
 
 } // namespace svg
 } // namespace rnoh

@@ -1,11 +1,11 @@
-//
-// Created on 2024/5/9.
-//
-// Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// please include "napi/native_api.h".
+/*
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ * Use of this source code is governed by a MIT license that can be
+ * found in the LICENSE file.
+ */
 
-#ifndef HARMONY_VIEWBOX_H
-#define HARMONY_VIEWBOX_H
+// based on https://svgwg.org/svg2-draft/coords.html#ComputingAViewportsTransform
+#pragma once
 
 #include "Rect.h"
 #include "drawing/Matrix.h"
@@ -23,8 +23,6 @@ private:
 
 public:
     static drawing::Matrix getTransform(const Rect &vbRect, const Rect &eRect, const std::string &align, const int &meetOrSlice) {
-        // based on https://svgwg.org/svg2-draft/coords.html#ComputingAViewportsTransform
-
         // Let vb-x, vb-y, vb-width, vb-height be the min-x, min-y, width and height values of the
         // viewBox attribute respectively.
         double vbX = vbRect.Left();
@@ -108,4 +106,3 @@ public:
 
 } // namespace svg
 } // namespace rnoh
-#endif // HARMONY_VIEWBOX_H
