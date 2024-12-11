@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -40,8 +40,6 @@ public:
     void Reset() {
         deltaX_ = 0.0;
         deltaY_ = 0.0;
-//         deltaXAnimationOption_ = AnimationOption();
-//         deltaYAnimationOption_ = AnimationOption();
     }
 
     static Offset Zero() { return Offset(); }

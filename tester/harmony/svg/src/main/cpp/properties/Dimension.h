@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -118,21 +118,9 @@ public:
         if (unit_ == DimensionUnit::VP) {
             return value_;
         }
-
-//         auto pipeline = PipelineBase::GetCurrentContextSafely();
-//         CHECK_NULL_RETURN(pipeline, 0.0);
-//         if (unit_ == DimensionUnit::NONE) {
-//             return value_ / pipeline->GetDipScale();
-//         }
         if (unit_ == DimensionUnit::PX) {
             return value_ / scale;
         }
-//         if (unit_ == DimensionUnit::FP) {
-//             return value_ * pipeline->GetFontScale();
-//         }
-//         if (unit_ == DimensionUnit::LPX) {
-//             return value_ * pipeline->GetLogicScale() / pipeline->GetDipScale();
-//         }
         return 0.0;
     };
 
@@ -144,19 +132,12 @@ public:
         if (unit_ == DimensionUnit::PX) {
             return value_;
         }
-
-//         auto pipeline = PipelineBase::GetCurrentContextSafely();
-//         CHECK_NULL_RETURN(pipeline, 0.0);
         if (unit_ == DimensionUnit::VP) {
             return value_ * scale;
         }
         if (unit_ == DimensionUnit::FP) {
-//             return value_ * pipeline->GetDipScale() * pipeline->GetFontScale();
             return value_ * scale;
         }
-//         if (unit_ == DimensionUnit::LPX) {
-//             return value_ * pipeline->GetLogicScale();
-//         }
         return 0.0;
     };
 

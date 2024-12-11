@@ -24,7 +24,7 @@ void SvgUse::OnDraw(OH_Drawing_Canvas *canvas) {
     }
 
     if (x != 0 || y != 0) {
-        OH_Drawing_CanvasTranslate(canvas, vpToPx(x), vpToPx(y));
+        OH_Drawing_CanvasTranslate(canvas, x * scale_, y * scale_);
     }
 
     AttributeScope scope(refSvgNode);

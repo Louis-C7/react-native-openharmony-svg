@@ -12,6 +12,12 @@
 namespace rnoh {
 namespace svg {
 
+constexpr double RNSVG_DEG_TO_RAD = M_PI / 180.0;
+constexpr double RNSVG_RAD_TO_DEG = 180.0 / M_PI;
+constexpr double ANGLE_THRESHOLD = 180.0;
+constexpr double FULL_CIRCLE = 360.0;
+constexpr double BISECT_DIVISOR = 2.0;
+
 enum class RNSVGMarkerType {
   kStartMarker,
   kMidMarker,
@@ -72,16 +78,16 @@ namespace SvgMarkerPositionUtils{
     static Point in_slope_ = {0, 0};
     static Point out_slope_ = {0, 0};
 
-    static bool auto_start_reverse_; // TODO
+    static bool auto_start_reverse_;
 
     //ios only, use in renderMarker.
     inline double deg2rad(double deg) {
-        const double RNSVG_degToRad = M_PI / 180.0;
+        const double RNSVG_degToRad = RNSVG_DEG_TO_RAD;
         return deg * RNSVG_degToRad;
     }
 
     inline double rad2deg(double rad) {
-        const double RNSVG_radToDeg = 180.0 / M_PI;
+        const double RNSVG_radToDeg = RNSVG_RAD_TO_DEG;
         return rad * RNSVG_radToDeg;
     }
 
@@ -90,8 +96,8 @@ namespace SvgMarkerPositionUtils{
     }
 
     inline double BisectingAngle(double in_angle, double out_angle) {
-        if (std::abs(in_angle - out_angle) > 180) in_angle += 360;
-        return (in_angle + out_angle) / 2.0;
+        if (std::abs(in_angle - out_angle) > ANGLE_THRESHOLD) in_angle += FULL_CIRCLE;
+        return (in_angle + out_angle) / BISECT_DIVISOR;
     }
 
     inline Point subtract(Point p1, Point p2) {
@@ -107,7 +113,7 @@ namespace SvgMarkerPositionUtils{
         double out_angle = rad2deg(SlopeAngleRadians(out_slope_));
         switch (type) {
             case RNSVGMarkerType::kStartMarker:
-                if (auto_start_reverse_) out_angle += 180;
+                if (auto_start_reverse_) out_angle += ANGLE_THRESHOLD;
                 return out_angle;
             case RNSVGMarkerType::kMidMarker:
                 return BisectingAngle(in_angle, out_angle);

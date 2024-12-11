@@ -23,41 +23,35 @@ namespace react {
  * State for <Image> component.
  */
 class JSI_EXPORT RNSVGImageState final {
- public:
-  RNSVGImageState(ImageSource const &imageSource, ImageRequest imageRequest)
-      : imageSource_(imageSource),
-        imageRequest_(
-            std::make_shared<ImageRequest>(std::move(imageRequest))){};
+public:
+    RNSVGImageState(ImageSource const &imageSource, ImageRequest imageRequest)
+        : imageSource_(imageSource), imageRequest_(std::make_shared<ImageRequest>(std::move(imageRequest))){};
 
-  /*
-   * Returns stored ImageSource object.
-   */
-  ImageSource getImageSource() const;
+    /*
+     * Returns stored ImageSource object.
+     */
+    ImageSource getImageSource() const;
 
-  /*
-   * Exposes for reading stored `ImageRequest` object.
-   * `ImageRequest` object cannot be copied or moved from `ImageLocalData`.
-   */
-  ImageRequest const &getImageRequest() const;
+    /*
+     * Exposes for reading stored `ImageRequest` object.
+     * `ImageRequest` object cannot be copied or moved from `ImageLocalData`.
+     */
+    ImageRequest const &getImageRequest() const;
 
 #ifdef ANDROID
-  RNSVGImageState(RNSVGImageState const &previousState, folly::dynamic data){};
+    RNSVGImageState(RNSVGImageState const &previousState, folly::dynamic data){};
 
-  /*
-   * Empty implementation for Android because it doesn't use this class.
-   */
-  folly::dynamic getDynamic() const {
-    return {};
-  };
+    /*
+     * Empty implementation for Android because it doesn't use this class.
+     */
+    folly::dynamic getDynamic() const { return {}; };
 
-  MapBuffer getMapBuffer() const {
-    return MapBufferBuilder::EMPTY();
-  };
+    MapBuffer getMapBuffer() const { return MapBufferBuilder::EMPTY(); };
 #endif
 
- private:
-  ImageSource imageSource_;
-  std::shared_ptr<ImageRequest> imageRequest_;
+private:
+    ImageSource imageSource_;
+    std::shared_ptr<ImageRequest> imageRequest_;
 };
 
 } // namespace react

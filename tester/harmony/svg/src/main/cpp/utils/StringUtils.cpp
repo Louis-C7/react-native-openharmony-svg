@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -20,6 +20,9 @@
  */
 
 #include "StringUtils.h"
+#include "multimedia/image_framework/image/image_packer_native.h"
+#include "multimedia/image_framework/image/image_source_native.h"
+#include "multimedia/image_framework/image/pixelmap_native.h"
 
 namespace rnoh {
 namespace svg {

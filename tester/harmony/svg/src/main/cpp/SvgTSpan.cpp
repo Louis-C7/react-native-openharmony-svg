@@ -17,6 +17,12 @@
 namespace rnoh {
 namespace svg {
 
+constexpr double MATHEMATICAL_BASELINE_SHIFT_FACTOR = 0.5;
+constexpr double HANGING_BASELINE_SHIFT_FACTOR = 0.8;
+constexpr double ALIGN_START = 0.0;
+constexpr double ALIGN_MIDDLE = -0.5;
+constexpr double ALIGN_END = -1.0;
+
 void SvgTSpan::OnDraw(OH_Drawing_Canvas *canvas) {
     if (!glyphCtx_) {
         InitGlyph(canvas, scale_);
@@ -130,13 +136,13 @@ double SvgTSpan::getTextAnchorOffset(TextAnchor textAnchor, const double &textMe
     switch (textAnchor) {
     default:
     case TextAnchor::start:
-        return 0;
+        return ALIGN_START;
 
     case TextAnchor::middle:
-        return -textMeasure / 2;
+        return ALIGN_MIDDLE * textMeasure;
 
     case TextAnchor::end:
-        return -textMeasure;
+        return ALIGN_END * textMeasure;
     }
 }
 
@@ -332,11 +338,11 @@ double SvgTSpan::CalcBaselineShift(OH_Drawing_TypographyCreate *handler, OH_Draw
         break;
 
     case AlignmentBaseline::mathematical:
-        baselineShift = 0.5 * ascenderHeight;
+        baselineShift = MATHEMATICAL_BASELINE_SHIFT_FACTOR * ascenderHeight;
         break;
 
     case AlignmentBaseline::hanging:
-        baselineShift = 0.8 * ascenderHeight;
+        baselineShift = HANGING_BASELINE_SHIFT_FACTOR * ascenderHeight;
         break;
 
     case AlignmentBaseline::textTop:

@@ -18,10 +18,10 @@ class SvgPattern : public SvgQuote {
 public:
     using Float = facebook::react::Float;
     SvgPattern();
-    ~SvgPattern() = default;
+    ~SvgPattern() override = default;
     
-    virtual void OnDrawTraversedBefore(OH_Drawing_Canvas *canvas) override;
-    virtual void OnDrawTraversedAfter(OH_Drawing_Canvas *canvas) override;
+    void OnDrawTraversedBefore(OH_Drawing_Canvas *canvas) override;
+    void OnDrawTraversedAfter(OH_Drawing_Canvas *canvas) override;
     void SaveDefinition(OH_Drawing_Canvas *canvas);
     void ConcatMatrix(OH_Drawing_Canvas *canvas);
     std::shared_ptr<PatternAttr> GetPatternAttr();

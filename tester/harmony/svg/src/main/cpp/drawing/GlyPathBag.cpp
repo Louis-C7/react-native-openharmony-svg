@@ -15,8 +15,6 @@ int GlyPathBag::getIndex(char ch) {
     return it == data.end() ? 0 : it->second;
 }
 
-drawing::Path GlyPathBag::getOrCreateAndCache(const char &ch, const std::string &current) {
-    return drawing::Path();
-}
+drawing::Path GlyPathBag::getOrCreateAndCache(const char &ch, const std::string &current) { return drawing::Path(); }
 
 } // namespace rnoh::drawing

@@ -9,6 +9,14 @@
 namespace rnoh {
 namespace svg {
 
+constexpr size_t PATTERN_TRANSFORM_MATRIX_SIZE = 6;
+constexpr int TRANSFORM_SCALE_X_INDEX = 0;
+constexpr int TRANSFORM_SKEW_Y_INDEX = 1;
+constexpr int TRANSFORM_SKEW_X_INDEX = 2;
+constexpr int TRANSFORM_SCALE_Y_INDEX = 3;
+constexpr int TRANSFORM_TRANSLATE_X_INDEX = 4;
+constexpr int TRANSFORM_TRANSLATE_Y_INDEX = 5;
+
 SvgPattern::SvgPattern() { DLOG(INFO) << "[SvgPattern] init"; }
 
 void SvgPattern::OnDrawTraversedBefore(OH_Drawing_Canvas *canvas) {
@@ -52,13 +60,13 @@ void SvgPattern::setPatternTransforms(std::vector<Float> patternTransforms) {
     std::vector<Float> newMatrix{
         1, 0, 0, 0, 1, 0, 0, 0, 1,
     };
-    if (patternTransforms.size() == 6) {
-        newMatrix[0] = (Float)patternTransforms[0];
-        newMatrix[1] = (Float)patternTransforms[2];
-        newMatrix[2] = (Float)patternTransforms[4] * scale_;
-        newMatrix[3] = (Float)patternTransforms[1];
-        newMatrix[4] = (Float)patternTransforms[3];
-        newMatrix[5] = (Float)patternTransforms[5] * scale_;
+    if (patternTransforms.size() == PATTERN_TRANSFORM_MATRIX_SIZE) {
+        newMatrix[0] = (Float)patternTransforms[TRANSFORM_SCALE_X_INDEX];
+        newMatrix[1] = (Float)patternTransforms[TRANSFORM_SKEW_X_INDEX];
+        newMatrix[2] = (Float)patternTransforms[TRANSFORM_TRANSLATE_X_INDEX] * scale_;
+        newMatrix[3] = (Float)patternTransforms[TRANSFORM_SKEW_Y_INDEX];
+        newMatrix[4] = (Float)patternTransforms[TRANSFORM_SCALE_Y_INDEX];
+        newMatrix[5] = (Float)patternTransforms[TRANSFORM_TRANSLATE_Y_INDEX] * scale_;
         patternAttr->setPatternTransform(std::move(newMatrix));
     }
 }

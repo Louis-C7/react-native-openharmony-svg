@@ -11,6 +11,17 @@
 namespace rnoh {
 namespace svg {
 
+constexpr int LIGHTER_THRESHOLD_550 = 550;
+constexpr int LIGHTER_THRESHOLD_750 = 750;
+constexpr int BOLDER_THRESHOLD_350 = 350;
+constexpr int BOLDER_THRESHOLD_550 = 550;
+constexpr int BOLDER_THRESHOLD_900 = 900;
+constexpr int DEFAULT_BOLDER_WEIGHT = 400;
+constexpr int DEFAULT_LIGHTER_WEIGHT = 100;
+constexpr int DEFAULT_MEDIUM_WEIGHT = 400;
+constexpr int DEFAULT_BOLDER_WEIGHT_700 = 700;
+constexpr int DEFAULT_BOLDER_WEIGHT_900 = 900;
+
 enum class FontStyle { normal, italic, oblique };
 
 enum class FontWeight {
@@ -41,7 +52,6 @@ FontWeight fontWeightFromStr(const std::string &str);
 TextAnchor textAnchorFromStr(const std::string &str);
 TextDecoration textDecorationFromStr(const std::string &str);
 FontVariantLigatures fontVariantFromStr(const std::string &str);
-
 
 // intermediate data to store in Svg nodes
 struct FontProps {
@@ -103,49 +113,48 @@ public:
 
     void handleNumericWeight(const FontData &parent, double number);
 
-
 private:
     static const int normal = 400;
 
     static const FontWeight WEIGHTS[];
 
-    static FontWeight nearestFontWeight(int absoluteFontWeight) {
-        return WEIGHTS[static_cast<int>(absoluteFontWeight / 100.0f)];
+    static FontWeight nearestFontWeight(int abFontWeight) {
+        return WEIGHTS[static_cast<int>(abFontWeight / 100.0f)];
     }
 
     static const int absoluteFontWeights[];
 
-    static int from(FontWeight fontWeight, const FontData &parent) {
-        if (fontWeight == FontWeight::bolder) {
+    static int from(FontWeight fontW, const FontData &parent) {
+        if (fontW == FontWeight::bolder) {
             return WeightToBolder(parent.absoluteFontWeight);
-        } else if (fontWeight == FontWeight::lighter) {
+        } else if (fontW == FontWeight::lighter) {
             return lighter(parent.absoluteFontWeight);
         } else {
-            return absoluteFontWeights[static_cast<int>(fontWeight)];
+            return absoluteFontWeights[static_cast<int>(fontW)];
         }
     }
 
     static int WeightToBolder(int inherited) {
-        if (inherited < 350) {
-            return 400;
-        } else if (inherited < 550) {
-            return 700;
-        } else if (inherited < 900) {
-            return 900;
+        if (inherited < BOLDER_THRESHOLD_350) {
+            return DEFAULT_BOLDER_WEIGHT;
+        } else if (inherited < BOLDER_THRESHOLD_550) {
+            return DEFAULT_BOLDER_WEIGHT_700;
+        } else if (inherited < BOLDER_THRESHOLD_900) {
+            return DEFAULT_BOLDER_WEIGHT_900;
         } else {
             return inherited;
         }
     }
 
     static int lighter(int inherited) {
-        if (inherited < 100) {
+        if (inherited < DEFAULT_LIGHTER_WEIGHT) {
             return inherited;
-        } else if (inherited < 550) {
-            return 100;
-        } else if (inherited < 750) {
-            return 400;
+        } else if (inherited < LIGHTER_THRESHOLD_550) {
+            return DEFAULT_LIGHTER_WEIGHT;
+        } else if (inherited < LIGHTER_THRESHOLD_750) {
+            return DEFAULT_MEDIUM_WEIGHT;
         } else {
-            return 700;
+            return DEFAULT_BOLDER_WEIGHT_700;
         }
     }
 };

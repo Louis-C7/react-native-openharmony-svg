@@ -14,7 +14,7 @@ namespace svg {
 
 class RNSVGClipPathComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGClipPathShadowNode> {
 public:
-    RNSVGClipPathComponentInstance(Context context);
+    explicit RNSVGClipPathComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

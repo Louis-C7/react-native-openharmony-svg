@@ -14,7 +14,8 @@ namespace rnoh::drawing {
 
 class TextStyle final {
 
-using UniqueTextStyle = std::unique_ptr<OH_Drawing_TextStyle, decltype(&OH_Drawing_DestroyTextStyle)>;
+    using UniqueTextStyle = std::unique_ptr<OH_Drawing_TextStyle, decltype(&OH_Drawing_DestroyTextStyle)>;
+
 public:
     TextStyle();
     ~TextStyle() noexcept = default;
@@ -25,18 +26,16 @@ public:
     TextStyle(TextStyle &&) = default;
     TextStyle &operator=(TextStyle &&) = default;
 
-    void SetForegroundPen(OH_Drawing_Pen *pen) {
-        OH_Drawing_SetTextStyleForegroundPen(textStyle_.get(), pen);
-    }
+    void SetForegroundPen(OH_Drawing_Pen *pen) { OH_Drawing_SetTextStyleForegroundPen(textStyle_.get(), pen); }
 
     void SetForegroundBrush(OH_Drawing_Brush *brush) {
         OH_Drawing_SetTextStyleForegroundBrush(textStyle_.get(), brush);
     }
 
-    void Update(const std::shared_ptr<svg::FontData>& style);
+    void Update(const std::shared_ptr<svg::FontData> &style);
 // private:
-     UniqueTextStyle textStyle_;
-     friend class TypographyStyle;
+    UniqueTextStyle textStyle_;
+    friend class TypographyStyle;
 };
 
 } // namespace rnoh::drawing

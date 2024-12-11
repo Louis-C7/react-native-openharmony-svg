@@ -47,7 +47,6 @@ public:
         maskAttribute_.maskContentUnits = ToUnit(maskContentUnits);
         isDefaultMaskContentUnits(maskAttribute_.maskContentUnits == Unit::userSpaceOnUse);
     }
-    
 
 protected:
     void OnInitStyle() override;

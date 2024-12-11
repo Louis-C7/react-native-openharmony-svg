@@ -28,13 +28,12 @@ public:
     TypographyStyle &operator=(const TypographyStyle &) = delete;
 
     TypographyStyle(TypographyStyle &&other) = default;
-    TypographyStyle &operator=(TypographyStyle && other) = default;
+    TypographyStyle &operator=(TypographyStyle &&other) = default;
 
     void SetTextStyle(TextStyle textStyle);
 
     void Update(const std::shared_ptr<svg::FontData> &style);
 
-    // private:
     UniqueTypographyStyle typographyStyle_;
     TextStyle::UniqueTextStyle textStyle_ = {nullptr, OH_Drawing_DestroyTextStyle};
 };

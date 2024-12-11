@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -39,6 +39,8 @@
 
 namespace rnoh {
 namespace svg {
+
+constexpr int INHERIT_TYPE = 2;
 
 class SvgNode : public std::enable_shared_from_this<SvgNode> {
 public:
@@ -95,23 +97,23 @@ public:
             set.insert(prop);
         }
 
-        if (props->fill.type == 2) {
-            Color color = Color((uint32_t)*props->fill.payload);
+        if (props->fill.type == INHERIT_TYPE) {
+            Color color = Color(static_cast<uint32_t>(*props->fill.payload));
             color.SetUseCurrentColor(true);
             attributes_.fillState.SetColor(color, true);
         } else if (facebook::react::isColorMeaningful(props->fill.payload)) {
-            attributes_.fillState.SetColor(Color((uint32_t)*props->fill.payload), set.count("fill"));
+            attributes_.fillState.SetColor(Color(static_cast<uint32_t>(*props->fill.payload)), set.count("fill"));
         } else {
             attributes_.fillState.SetColor(Color::TRANSPARENT, set.count("fill"));
         }
         attributes_.fillState.SetHref(props->fill.brushRef);
 
-        if (props->stroke.type == 2) {
-            Color color = Color((uint32_t)*props->stroke.payload);
+        if (props->stroke.type == INHERIT_TYPE) {
+            Color color = Color(static_cast<uint32_t>(*props->stroke.payload));
             color.SetUseCurrentColor(true);
             attributes_.strokeState.SetColor(color, true);
         } else if (facebook::react::isColorMeaningful(props->stroke.payload)) {
-            attributes_.strokeState.SetColor(Color((uint32_t)*props->stroke.payload), set.count("stroke"));
+            attributes_.strokeState.SetColor(Color(static_cast<uint32_t>(*props->stroke.payload)), set.count("stroke"));
         } else {
             attributes_.strokeState.SetColor(Color::TRANSPARENT, set.count("stroke"));
         }
@@ -120,17 +122,17 @@ public:
         attributes_.fillState.SetOpacity(std::clamp(props->fillOpacity, 0.0, 1.0), set.count("fillOpacity"));
         // todo Inheritance situation
         attributes_.fillState.SetFillRule(static_cast<FillState::FillRule>(props->fillRule), true);
-        attributes_.strokeState.SetLineWidth(vpToPx(StringUtils::StringToDouble(props->strokeWidth)),
+        attributes_.strokeState.SetLineWidth(StringUtils::StringToDouble(props->strokeWidth) * scale_,
                                              set.count("strokeWidth"));
-        attributes_.strokeState.SetStrokeDashArray(StringUtils::stringVectorToDoubleVector(props->strokeDasharray),
-                                                   set.count("strokeDasharray"));
-        attributes_.strokeState.SetStrokeDashOffset(vpToPx(props->strokeDashoffset), set.count("strokeDashoffset"));
+        attributes_.strokeState.SetStrokeDashArray(
+            StringUtils::stringVectorToDoubleVector(props->strokeDasharray, scale_), set.count("strokeDasharray"));
+        attributes_.strokeState.SetStrokeDashOffset(props->strokeDashoffset * scale_, set.count("strokeDashoffset"));
         attributes_.strokeState.SetLineCap(SvgAttributesParser::GetLineCapStyle(std::to_string(props->strokeLinecap)),
                                            set.count("strokeLinecap"));
         attributes_.strokeState.SetLineJoin(
             SvgAttributesParser::GetLineJoinStyle(std::to_string(props->strokeLinejoin)), set.count("strokeLinejoin"));
         attributes_.strokeState.SetVectorEffect(props->vectorEffect);
-        auto limit = vpToPx(props->strokeMiterlimit);
+        auto limit = props->strokeMiterlimit * scale_;
         if (GreatOrEqual(limit, 1.0)) {
             attributes_.strokeState.SetMiterLimit(limit, set.count("strokeMiterlimit"));
         }
@@ -206,7 +208,6 @@ protected:
     std::string hrefClipPath_;
     std::string imagePath_;
 
-    // TODO get densityPixels in CAPI
     double scale_ = 3.25;
 
     drawing::Matrix cTM_;

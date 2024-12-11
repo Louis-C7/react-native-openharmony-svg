@@ -11,6 +11,14 @@
 namespace rnoh {
 namespace svg {
 
+constexpr int TRANSFORM_SCALE_X_INDEX = 0;
+constexpr int TRANSFORM_SKEW_Y_INDEX = 1;
+constexpr int TRANSFORM_SKEW_X_INDEX = 2;
+constexpr int TRANSFORM_SCALE_Y_INDEX = 3;
+constexpr int TRANSFORM_TRANSLATE_X_INDEX = 4;
+constexpr int TRANSFORM_TRANSLATE_Y_INDEX = 5;
+constexpr size_t GRADIENT_TRANSFORM_MATRIX_SIZE = 6;
+
 SvgGradient::SvgGradient(GradientType gradientType)
 {
     gradientAttr_.gradient.SetType(gradientType);
@@ -88,13 +96,13 @@ void SvgGradient::SetAttrGradientTransforms(std::vector<Float> gradientTransform
         0, 1, 0,
         0, 0, 1,
     };
-    if (gradientTransforms.size() == 6) {
-        newMatrix[0] = (Float) gradientTransforms[0];
-        newMatrix[1] = (Float) gradientTransforms[2];
-        newMatrix[2] = (Float) gradientTransforms[4] * scale_;
-        newMatrix[3] = (Float) gradientTransforms[1];
-        newMatrix[4] = (Float) gradientTransforms[3];
-        newMatrix[5] = (Float) gradientTransforms[5] * scale_;
+    if (gradientTransforms.size() == GRADIENT_TRANSFORM_MATRIX_SIZE) {
+        newMatrix[0] = (Float) gradientTransforms[TRANSFORM_SCALE_X_INDEX];
+        newMatrix[1] = (Float) gradientTransforms[TRANSFORM_SKEW_X_INDEX];
+        newMatrix[2] = (Float) gradientTransforms[TRANSFORM_TRANSLATE_X_INDEX] * scale_;
+        newMatrix[3] = (Float) gradientTransforms[TRANSFORM_SKEW_Y_INDEX];
+        newMatrix[4] = (Float) gradientTransforms[TRANSFORM_SCALE_Y_INDEX];
+        newMatrix[5] = (Float) gradientTransforms[TRANSFORM_TRANSLATE_Y_INDEX] * scale_;
         gradientAttr_.gradient.SetGradientTransform(std::move(newMatrix));
     }
 }

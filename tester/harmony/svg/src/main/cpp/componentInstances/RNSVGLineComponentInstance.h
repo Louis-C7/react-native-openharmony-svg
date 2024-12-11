@@ -14,7 +14,7 @@ namespace svg {
 
 class RNSVGLineComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGLineShadowNode> {
 public:
-    RNSVGLineComponentInstance(Context context);
+    explicit RNSVGLineComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

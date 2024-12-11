@@ -14,7 +14,7 @@ namespace svg {
 
 class RNSVGTSpanComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGTSpanShadowNode> {
 public:
-    RNSVGTSpanComponentInstance(Context context);
+    explicit RNSVGTSpanComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

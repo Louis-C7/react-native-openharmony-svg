@@ -10,9 +10,9 @@
 namespace rnoh {
 namespace svg {
 
-double FontData::toAbsolute(const std::string &value, double scale, double fontSize, double relative) {
+double FontData::toAbsolute(const std::string &value, double scale, double fontSz, double relative) {
     auto val = StringUtils::FromString(value);
-    return val.RelativeConvertToPx(fontSize, scale);
+    return val.RelativeConvertToPx(fontSz, scale);
 }
 
 void FontData::setInheritedWeight(const FontData &parent) {
@@ -72,7 +72,7 @@ FontData::FontData(const FontProps &props, const FontData &parent, double scale)
         !props.letterSpacing.empty() ? toAbsolute(props.letterSpacing, scale, fontSize, 0) : parent.letterSpacing;
 }
 
-const double FontData::DEFAULT_FONT_SIZE = vpToPx(12.0);
+const double FontData::DEFAULT_FONT_SIZE = 3.25 * 12.0;
 const double FontData::DEFAULT_KERNING = 0.0;
 const double FontData::DEFAULT_WORD_SPACING = 0.0;
 const double FontData::DEFAULT_LETTER_SPACING = 0.0;

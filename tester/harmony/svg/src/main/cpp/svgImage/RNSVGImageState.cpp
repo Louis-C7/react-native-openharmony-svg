@@ -10,12 +10,8 @@
 namespace facebook {
 namespace react {
 
-ImageSource RNSVGImageState::getImageSource() const {
-  return imageSource_;
-}
+ImageSource RNSVGImageState::getImageSource() const { return imageSource_; }
 
-ImageRequest const &RNSVGImageState::getImageRequest() const {
-  return *imageRequest_;
-}
+ImageRequest const &RNSVGImageState::getImageRequest() const { return *imageRequest_; }
 } // namespace react
 } // namespace facebook

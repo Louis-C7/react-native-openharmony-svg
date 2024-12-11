@@ -47,7 +47,6 @@ TextLengthAdjust textLengthAdjustFromStr(const std::string &str) {
     } else {
         return TextLengthAdjust::spacingAndGlyphs;
     }
-
 }
 
 AlignmentBaseline alignmentBaselineFromStr(const std::string &str) {

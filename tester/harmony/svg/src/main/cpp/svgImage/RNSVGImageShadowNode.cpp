@@ -17,46 +17,45 @@ namespace react {
 
 const char RNSVGImageComponentName[] = "RNSVGImage";
 
-void RNSVGImageShadowNode::setImageManager(
-    const SharedImageManager &imageManager) {
-  ensureUnsealed();
-  imageManager_ = imageManager;
+void RNSVGImageShadowNode::setImageManager(const SharedImageManager &imageManager) {
+    ensureUnsealed();
+    imageManager_ = imageManager;
 }
 
 ImageSource RNSVGImageShadowNode::getImageSource() const {
-  auto source = getConcreteProps().src;
+    auto source = getConcreteProps().src;
 
-  auto layoutMetrics = getLayoutMetrics();
-  auto size = layoutMetrics.getContentFrame().size;
-  auto scale = layoutMetrics.pointScaleFactor;
-  source.size = size;
-  source.scale = scale;
-  return source;
+    auto layoutMetrics = getLayoutMetrics();
+    auto size = layoutMetrics.getContentFrame().size;
+    auto scale = layoutMetrics.pointScaleFactor;
+    source.size = size;
+    source.scale = scale;
+    return source;
 }
 
 void RNSVGImageShadowNode::updateStateIfNeeded() {
-  ensureUnsealed();
+    ensureUnsealed();
 
-  auto imageSource = getImageSource();
-  auto const &currentState = getStateData();
-  bool hasSameImageSource = currentState.getImageSource() == imageSource;
+    auto imageSource = getImageSource();
+    auto const &currentState = getStateData();
+    bool hasSameImageSource = currentState.getImageSource() == imageSource;
 
-  if (hasSameImageSource) {
-    return;
-  }
+    if (hasSameImageSource) {
+        return;
+    }
 
-  auto state = RNSVGImageState{
-      imageSource,
-      imageManager_->requestImage(imageSource, getSurfaceId()),
-  };
-  setStateData(std::move(state));
+    auto state = RNSVGImageState{
+        imageSource,
+        imageManager_->requestImage(imageSource, getSurfaceId()),
+    };
+    setStateData(std::move(state));
 }
 
 #pragma mark - LayoutableShadowNode
 
 void RNSVGImageShadowNode::layout(LayoutContext layoutContext) {
-  updateStateIfNeeded();
-  ConcreteViewShadowNode::layout(layoutContext);
+    updateStateIfNeeded();
+    ConcreteViewShadowNode::layout(layoutContext);
 }
 
 } // namespace react

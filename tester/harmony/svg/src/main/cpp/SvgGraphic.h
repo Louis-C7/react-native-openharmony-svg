@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -65,7 +65,7 @@ protected:
 
 private:
     void DrawMarker(OH_Drawing_Canvas *canvas);
-    // TODO void UpdateColorFilter(OH_Drawing_Filter *filter);
+    // to be done? Color Filter;
 };
 
 } // namespace svg

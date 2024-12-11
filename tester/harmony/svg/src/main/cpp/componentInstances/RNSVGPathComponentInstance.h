@@ -14,7 +14,7 @@ namespace svg {
 
 class RNSVGPathComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGPathShadowNode> {
 public:
-    RNSVGPathComponentInstance(Context context);
+    explicit RNSVGPathComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

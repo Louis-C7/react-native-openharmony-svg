@@ -82,9 +82,7 @@ void Path::AddArc(const Rect &rect, float startAngle, float sweepAngle) {
     OH_Drawing_PathAddArc(get(), rect.get(), startAngle, sweepAngle);
 }
 
-void Path::AddPath(const Path &src) {
-    OH_Drawing_PathAddPath(get(), src.get(), nullptr);
-}
+void Path::AddPath(const Path &src) { OH_Drawing_PathAddPath(get(), src.get(), nullptr); }
 
 void Path::AddPath(const Path &src, const Matrix &matrix) { OH_Drawing_PathAddPath(get(), src.get(), matrix.get()); }
 
@@ -106,14 +104,14 @@ void Path::AddCircle(float x, float y, float radius, Direction direction) {
     OH_Drawing_PathAddCircle(get(), x, y, radius, direction);
 }
 
-std::optional<Path> Path::BuildFromSvgString(const char *str) { 
+std::optional<Path> Path::BuildFromSvgString(const char *str) {
     Path path;
     if (OH_Drawing_PathBuildFromSvgString(path.get(), str)) {
         return path;
     } else {
         return std::nullopt;
     }
- }
+}
 
 bool Path::Contains(float x, float y) { return OH_Drawing_PathContains(get(), x, y); }
 
@@ -160,9 +158,7 @@ bool Path::Union(Path &source) { return Op(source, PATH_OP_MODE_UNION); }
 
 bool Path::Xor(Path &source) { return Op(source, PATH_OP_MODE_XOR); }
 
-bool Path::ReverseDifference(Path &source) {
-    return Op(source, PATH_OP_MODE_REVERSE_DIFFERENCE);
-}
+bool Path::ReverseDifference(Path &source) { return Op(source, PATH_OP_MODE_REVERSE_DIFFERENCE); }
 
 std::optional<Matrix> Path::GetMatrix(bool forceClosed, float distance, MeasureMatrixFlags flag) {
     Matrix matrix;
