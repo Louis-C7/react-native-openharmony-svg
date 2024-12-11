@@ -39,7 +39,6 @@ Rect SvgSvg::GetViewBox() const {
 
 drawing::Matrix SvgSvg::FitCanvas(OH_Drawing_Canvas *canvas) {
     const auto svgSize = GetSize();
-    // TODO Since OH_Drawing API return px and RN pass vp
     const auto vbRect = GetViewBox(); // should be viewBox attribute
     const auto eRect = Rect(svgAttribute_.x.ConvertToPx(scale_), svgAttribute_.y.ConvertToPx(scale_), svgSize.Width(),
                             svgSize.Height());
@@ -60,9 +59,6 @@ void SvgSvg::Draw(OH_Drawing_Canvas *canvas) {
     float height = OH_Drawing_CanvasGetHeight(canvas);
     context_->SetCanvasBounds(Rect(0.0f, 0.0f, width, height));
     context_->SetRootViewBox(GetViewBox());
-
-    //     width_ = relativeOnWidth(svgAttribute_.width);
-    //     height_ = relativeOnHeight(svgAttribute_.height);
     width_ = width;
     height_ = height;
     DLOG(INFO) << "[svgView] bbHeight: " << svgAttribute_.height.Value();
@@ -75,7 +71,10 @@ void SvgSvg::Draw(OH_Drawing_Canvas *canvas) {
     // apply scale
     OH_Drawing_CanvasSave(canvas);
     auto canvasTransformMatrix = FitCanvas(canvas);
-    context_->SetCanvasScale(canvasTransformMatrix.GetValue(0), canvasTransformMatrix.GetValue(4));
+    constexpr size_t matrixScaleXIndex = 0;
+    constexpr size_t matrixScaleYIndex = 4;
+    context_->SetCanvasScale(canvasTransformMatrix.GetValue(matrixScaleXIndex),
+                             canvasTransformMatrix.GetValue(matrixScaleYIndex));
     SvgNode::Draw(canvas);
     OH_Drawing_CanvasRestore(canvas);
 };

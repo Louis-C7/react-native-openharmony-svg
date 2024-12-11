@@ -13,7 +13,8 @@ namespace rnoh::drawing {
 
 class Typography {
 public:
-    Typography(OH_Drawing_TypographyCreate* handler) : typ_(TypUPtr(OH_Drawing_CreateTypography(handler), OH_Drawing_DestroyTypography)) {}
+    Typography(OH_Drawing_TypographyCreate *handler)
+        : typ_(TypUPtr(OH_Drawing_CreateTypography(handler), OH_Drawing_DestroyTypography)) {}
     OH_Drawing_Typography *operator&() { return typ_.get(); }
 
 private:
@@ -21,4 +22,4 @@ private:
     TypUPtr typ_;
 };
 
-} // namespace rnoh
+} // namespace rnoh::drawing

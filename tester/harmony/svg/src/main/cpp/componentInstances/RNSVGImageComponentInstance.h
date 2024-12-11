@@ -15,7 +15,7 @@ namespace svg {
 
 class RNSVGImageComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGImageShadowNode> {
 public:
-    RNSVGImageComponentInstance(Context context);
+    explicit RNSVGImageComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

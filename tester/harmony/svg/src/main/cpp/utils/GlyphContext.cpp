@@ -1,8 +1,11 @@
 /*
- * Copyright 2015-2016 The react-native-svg Authors. All rights reserved
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
- * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ *
+ * This file incorporates from the react-native-svg project, licensed under
+ * the MIT License. Specifically:
+ * - [software-mansion/react-native-svg] (https://github.com/software-mansion/react-native-svg)
  */
 
 #include "GlyphContext.h"

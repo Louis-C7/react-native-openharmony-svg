@@ -14,7 +14,7 @@ namespace svg {
 
 class RNSVGMarkerComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGMarkerShadowNode> {
 public:
-    RNSVGMarkerComponentInstance(Context context);
+    explicit RNSVGMarkerComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

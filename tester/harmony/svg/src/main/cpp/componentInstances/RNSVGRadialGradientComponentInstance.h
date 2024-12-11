@@ -15,7 +15,7 @@ namespace svg {
 class RNSVGRadialGradientComponentInstance
     : public RNSVGBaseComponentInstance<facebook::react::RNSVGRadialGradientShadowNode> {
 public:
-    RNSVGRadialGradientComponentInstance(Context context);
+    explicit RNSVGRadialGradientComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

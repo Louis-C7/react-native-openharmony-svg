@@ -24,43 +24,39 @@ JSI_EXPORT extern const char RNSVGImageComponentName[];
 /*
  * `ShadowNode` for <RNSVGImage> component.
  */
-class JSI_EXPORT RNSVGImageShadowNode final : public ConcreteViewShadowNode<
-                                                  RNSVGImageComponentName,
-                                                  RNSVGImageProps,
-                                                  ViewEventEmitter,
-                                                  RNSVGImageState> {
- public:
-  using ConcreteViewShadowNode::ConcreteViewShadowNode;
+class JSI_EXPORT RNSVGImageShadowNode final
+    : public ConcreteViewShadowNode<RNSVGImageComponentName, RNSVGImageProps, ViewEventEmitter, RNSVGImageState> {
+public:
+    using ConcreteViewShadowNode::ConcreteViewShadowNode;
 
-  static ShadowNodeTraits BaseTraits() {
-    auto traits = ConcreteViewShadowNode::BaseTraits();
-    traits.set(ShadowNodeTraits::Trait::LeafYogaNode);
-    return traits;
-  }
+    static ShadowNodeTraits BaseTraits() {
+        auto traits = ConcreteViewShadowNode::BaseTraits();
+        traits.set(ShadowNodeTraits::Trait::LeafYogaNode);
+        return traits;
+    }
 
-  /*
-   * Associates a shared `ImageManager` with the node.
-   */
-  void setImageManager(const SharedImageManager &imageManager);
+    /*
+     * Associates a shared `ImageManager` with the node.
+     */
+    void setImageManager(const SharedImageManager &imageManager);
 
-  static RNSVGImageState initialStateData(
-      ShadowNodeFragment const &fragment,
-      ShadowNodeFamilyFragment const &familyFragment,
-      ComponentDescriptor const &componentDescriptor) {
-    auto imageSource = ImageSource{ImageSource::Type::Invalid};
-    return {imageSource, {imageSource, nullptr, {}}};
-  }
+    static RNSVGImageState initialStateData(ShadowNodeFragment const &fragment,
+                                            ShadowNodeFamilyFragment const &familyFragment,
+                                            ComponentDescriptor const &componentDescriptor) {
+        auto imageSource = ImageSource{ImageSource::Type::Invalid};
+        return {imageSource, {imageSource, nullptr, {}}};
+    }
 
 #pragma mark - LayoutableShadowNode
 
-  void layout(LayoutContext layoutContext) override;
+    void layout(LayoutContext layoutContext) override;
 
- private:
-  ImageSource getImageSource() const;
+private:
+    ImageSource getImageSource() const;
 
-  SharedImageManager imageManager_;
+    SharedImageManager imageManager_;
 
-  void updateStateIfNeeded();
+    void updateStateIfNeeded();
 };
 
 } // namespace react

@@ -4,7 +4,6 @@
  * found in the LICENSE file.
  */
 
-#include "arkui/native_interface.h"
 #include "arkui/native_node.h"
 #include "arkui/native_type.h"
 #include "RNOH/arkui/NativeNodeApi.h"
@@ -19,6 +18,8 @@
 
 namespace rnoh {
 namespace svg {
+
+constexpr int NODE_EVENT_ID = 77;
 
 // 对应SVGArkUINode
 SvgArkUINode::SvgArkUINode() : ArkUINode(NativeNodeApi::getInstance()->createNode(ArkUI_NodeType::ARKUI_NODE_CUSTOM)) {
@@ -35,7 +36,7 @@ SvgArkUINode::SvgArkUINode() : ArkUINode(NativeNodeApi::getInstance()->createNod
         }
     };
     eventReceiver = [](ArkUI_NodeCustomEvent *event) {
-        if (OH_ArkUI_NodeCustomEvent_GetEventTargetId(event) == 77) {
+        if (OH_ArkUI_NodeCustomEvent_GetEventTargetId(event) == NODE_EVENT_ID) {
             auto *userData = reinterpret_cast<UserCallback *>(OH_ArkUI_NodeCustomEvent_GetUserData(event));
             if (userData != nullptr && userData->callback != nullptr) {
                 userData->callback(event);
@@ -43,7 +44,7 @@ SvgArkUINode::SvgArkUINode() : ArkUINode(NativeNodeApi::getInstance()->createNod
         }
     };
     maybeThrow(NativeNodeApi::getInstance()->addNodeCustomEventReceiver(m_nodeHandle, eventReceiver));
-    maybeThrow(NativeNodeApi::getInstance()->registerNodeCustomEvent(m_nodeHandle, ARKUI_NODE_CUSTOM_EVENT_ON_DRAW, 77,
+    maybeThrow(NativeNodeApi::getInstance()->registerNodeCustomEvent(m_nodeHandle, ARKUI_NODE_CUSTOM_EVENT_ON_DRAW, NODE_EVENT_ID,
                                                                      userCallback_));
 }
 

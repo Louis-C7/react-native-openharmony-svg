@@ -14,7 +14,7 @@ namespace svg {
 
 class RNSVGCircleComponentInstance : public RNSVGBaseComponentInstance<facebook::react::RNSVGCircleShadowNode> {
 public:
-    RNSVGCircleComponentInstance(Context context);
+    explicit RNSVGCircleComponentInstance(Context context);
 
 protected:
     void UpdateElementProps() override;

@@ -65,10 +65,7 @@ std::vector<react::ComponentDescriptorProvider> SVGPackage::createComponentDescr
     };
 }
 
-ComponentNapiBinderByString SVGPackage::createComponentNapiBinderByName()
-{
-    return {};
-}
+ComponentNapiBinderByString SVGPackage::createComponentNapiBinderByName() { return {}; }
 
 ComponentJSIBinderByString SVGPackage::createComponentJSIBinderByName() {
     return {

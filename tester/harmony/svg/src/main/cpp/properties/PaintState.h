@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -101,17 +101,6 @@ struct CanvasImage {
     int32_t instanceId = 0;
 };
 
-// struct ImageData {
-//     RefPtr<Ace::PixelMap> pixelMap;
-//     int32_t x = 0;
-//     int32_t y = 0;
-//     int32_t dirtyX = 0;
-//     int32_t dirtyY = 0;
-//     int32_t dirtyWidth = 0;
-//     int32_t dirtyHeight = 0;
-//     std::vector<Color> data;
-// };
-
 struct TextMetrics {
     double width = 0;
     double height = 0;
@@ -171,219 +160,54 @@ enum class CompositeOperation {
     XOR,
 };
 
-enum class PaintStyle {
-    NONE = 0,
-    Color,
-    Gradient,
-    ImagePattern
-};
+enum class PaintStyle { NONE = 0, Color, Gradient, ImagePattern };
 
 class PaintState {
 public:
-    const Color& GetColor() const
-    {
-        return color_;
-    }
+    const Color &GetColor() const { return color_; }
 
-    void SetColor(const Color& color)
-    {
+    void SetColor(const Color &color) {
         paintStyle_ = PaintStyle::Color;
         color_ = color;
     }
 
-//     const Gradient& GetGradient() const
-//     {
-//         return gradient_;
-//     }
-//
-//     void SetGradient(const Gradient& gradient)
-//     {
-//         paintStyle_ = PaintStyle::Gradient;
-//         gradient_ = gradient;
-//     }
+    int32_t GetId() const { return id_; }
 
-//     const TextStyle& GetTextStyle() const
-//     {
-//         return textStyle_;
-//     }
-//
-//     void SetTextStyle(const TextStyle& textStyle)
-//     {
-//         textStyle_ = textStyle;
-//     }
-//
-//     TextAlign GetTextAlign() const
-//     {
-//         return textAlign_;
-//     }
-//
-//     void SetTextAlign(TextAlign textAlign)
-//     {
-//         textAlign_ = textAlign;
-//     }
-//
-//     TextDirection GetOffTextDirection() const
-//     {
-//         return textDirection_;
-//     }
-//
-//     void SetOffTextDirection(TextDirection textDirection)
-//     {
-//         textDirection_ = textDirection;
-//     }
-//
-//     void SetTextColor(const Color& color)
-//     {
-//         textStyle_.SetTextColor(color);
-//     }
-//
-//     void SetFontSize(const Dimension& size)
-//     {
-//         textStyle_.SetFontSize(size);
-//     }
-//
-//     void SetFontStyle(FontStyle style)
-//     {
-//         textStyle_.SetFontStyle(style);
-//     }
-//
-//     void SetFontWeight(FontWeight weight)
-//     {
-//         textStyle_.SetFontWeight(weight);
-//     }
-//
-//     void SetFontFamilies(const std::vector<std::string>& fontFamilies)
-//     {
-//         textStyle_.SetFontFamilies(fontFamilies);
-//     }
-//
-//     void SetTextBaseline(TextBaseline baseline)
-//     {
-//         textStyle_.SetTextBaseline(baseline);
-//     }
-//
-//     const Pattern& GetPattern() const
-//     {
-//         return pattern_;
-//     }
-//
-//     void SetPattern(const Pattern& pattern)
-//     {
-//         paintStyle_ = PaintStyle::ImagePattern;
-//         pattern_ = pattern;
-//     }
-//
-//     std::weak_ptr<Ace::Pattern> GetPatternNG() const
-//     {
-//         return patternNG_;
-//     }
-//
-//     Ace::Pattern GetPatternValue() const
-//     {
-//         Pattern pattern;
-//         if (!patternNG_.expired()) {
-//             auto value = patternNG_.lock();
-//             if (value) {
-//                 pattern = *value;
-//             }
-//         }
-//         return pattern;
-//     }
-//
-//     void SetPatternNG(const std::weak_ptr<Ace::Pattern>& pattern)
-//     {
-//         paintStyle_ = PaintStyle::ImagePattern;
-//         patternNG_ = pattern;
-//     }
+    void SetId(int32_t id) { id_ = id; }
 
-    int32_t GetId() const
-    {
-        return id_;
-    }
-
-    void SetId(int32_t id)
-    {
-        id_ = id;
-    }
-
-    PaintStyle GetPaintStyle() const
-    {
-        return paintStyle_;
-    }
+    PaintStyle GetPaintStyle() const { return paintStyle_; }
 
 protected:
     Color color_ = Color::BLACK;
-//     Gradient gradient_;
-//     TextStyle textStyle_;
-//     TextAlign textAlign_ = TextAlign::LEFT;
-//     TextDirection textDirection_ = TextDirection::LTR;
     int32_t id_ = 0;
     PaintStyle paintStyle_ = PaintStyle::Color;
-//     Pattern pattern_;
-//     std::weak_ptr<Ace::Pattern> patternNG_;
 };
 
 class StrokePaintState : public PaintState {
 public:
-    LineCapStyle GetLineCap() const
-    {
-        return lineCap_;
-    }
+    LineCapStyle GetLineCap() const { return lineCap_; }
 
-    void SetLineCap(LineCapStyle lineCap)
-    {
-        lineCap_ = lineCap;
-    }
+    void SetLineCap(LineCapStyle lineCap) { lineCap_ = lineCap; }
 
-    LineJoinStyle GetLineJoin() const
-    {
-        return lineJoin_;
-    }
+    LineJoinStyle GetLineJoin() const { return lineJoin_; }
 
-    void SetLineJoin(LineJoinStyle lineJoin)
-    {
-        lineJoin_ = lineJoin;
-    }
+    void SetLineJoin(LineJoinStyle lineJoin) { lineJoin_ = lineJoin; }
 
-    double GetLineWidth() const
-    {
-        return lineWidth_;
-    }
+    double GetLineWidth() const { return lineWidth_; }
 
-    void SetLineWidth(double lineWidth)
-    {
-        lineWidth_ = lineWidth;
-    }
+    void SetLineWidth(double lineWidth) { lineWidth_ = lineWidth; }
 
-    double GetMiterLimit() const
-    {
-        return miterLimit_;
-    }
+    double GetMiterLimit() const { return miterLimit_; }
 
-    void SetMiterLimit(double miterLimit)
-    {
-        miterLimit_ = miterLimit;
-    }
+    void SetMiterLimit(double miterLimit) { miterLimit_ = miterLimit; }
 
-    LineDashParam GetLineDash() const
-    {
-        return lineDash_;
-    }
+    LineDashParam GetLineDash() const { return lineDash_; }
 
-    void SetLineDash(const LineDashParam& lineDash)
-    {
-        lineDash_ = lineDash;
-    }
+    void SetLineDash(const LineDashParam &lineDash) { lineDash_ = lineDash; }
 
-    void SetLineDashOffset(double offset)
-    {
-        lineDash_.dashOffset = offset;
-    }
+    void SetLineDashOffset(double offset) { lineDash_.dashOffset = offset; }
 
-    void SetLineDash(const std::vector<double>& segments)
-    {
-        lineDash_.lineDash = segments;
-    }
+    void SetLineDash(const std::vector<double> &segments) { lineDash_.lineDash = segments; }
 
 private:
     LineCapStyle lineCap_ = LineCapStyle::BUTT;
@@ -397,42 +221,20 @@ private:
 
 class GlobalPaintState {
 public:
-    double GetAlpha() const
-    {
-        return alpha_;
-    }
+    double GetAlpha() const { return alpha_; }
 
-    void SetAlpha(double alpha)
-    {
-        alpha_ = alpha;
-    }
+    void SetAlpha(double alpha) { alpha_ = alpha; }
 
-    CompositeOperation GetType() const
-    {
-        return type_;
-    }
+    CompositeOperation GetType() const { return type_; }
 
-    void SetType(CompositeOperation type)
-    {
-        type_ = type;
-    }
+    void SetType(CompositeOperation type) { type_ = type; }
 
-    bool HasGlobalAlpha() const
-    {
-        return !NearEqual(alpha_, -1.0);
-    }
+    bool HasGlobalAlpha() const { return !NearEqual(alpha_, -1.0); }
 
 private:
     double alpha_ = -1.0;
     CompositeOperation type_ = CompositeOperation::SOURCE_OVER;
 };
-
-// struct PaintHolder {
-//     PaintState fillState;
-//     StrokePaintState strokeState;
-//     GlobalPaintState globalState;
-//     Shadow shadow;
-// };
 
 } // namespace svg
 } // namespace rnoh

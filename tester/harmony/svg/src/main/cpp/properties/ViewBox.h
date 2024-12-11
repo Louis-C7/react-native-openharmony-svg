@@ -37,10 +37,10 @@ public:
         double eHeight = eRect.Height();
 
         // Initialize scale-x to e-width/vb-width.
-        double scaleX = eWidth / vbWidth;
+        double scaleX = (vbWidth != 0) ? eWidth / vbWidth : 0.0;
 
         // Initialize scale-y to e-height/vb-height.
-        double scaleY = eHeight / vbHeight;
+        double scaleY = (vbHeight != 0) ? eHeight / vbHeight : 0.0;
 
         // Initialize translate-x to e-x - (vb-x * scale-x).
         // Initialize translate-y to e-y - (vb-y * scale-y).

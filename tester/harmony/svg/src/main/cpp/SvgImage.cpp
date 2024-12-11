@@ -17,8 +17,8 @@
 #include <native_drawing/drawing_sampling_options.h>
 #include <rawfile/raw_file.h>
 
-const char * ASSET_PREFIX = "asset://";
-const char * RAWFILE_PREFIX = "assets/";
+const char *ASSET_PREFIX = "asset://";
+const char *RAWFILE_PREFIX = "assets/";
 
 namespace rnoh {
 namespace svg {
@@ -46,7 +46,7 @@ void SvgImage::OnDraw(OH_Drawing_Canvas *canvas) {
         char *srcUri = const_cast<char *>(uriString.c_str());
 
         OH_DecodingOptions_Create(&options);
-        
+
         Image_ErrorCode createFromUriStatus;
         if (uriString.find(ASSET_PREFIX, 0) == 0) {
             auto file = uriString.replace(0, 8, RAWFILE_PREFIX);
@@ -71,7 +71,7 @@ void SvgImage::OnDraw(OH_Drawing_Canvas *canvas) {
 
         if (createPixelmapStatus == IMAGE_SUCCESS) {
             /* Temporarily disable the feature to set opacity.
-             * Currently, there is an issue where setting opacity on 
+             * Currently, there is an issue where setting opacity on
              * transparent pixels results in them turning black.
              */
             if (LessNotEqual(attributes_.opacity, 1.0f)) {
@@ -89,8 +89,8 @@ void SvgImage::OnDraw(OH_Drawing_Canvas *canvas) {
             OH_PixelmapImageInfo_GetWidth(info, imageWidth_);
             OH_PixelmapImageInfo_GetHeight(info, imageHeight_);
 
-            auto imageWidth = (double)*imageWidth_;
-            auto imageHeight = (double)*imageHeight_;
+            auto imageWidth = static_cast<double>(*imageWidth_);
+            auto imageHeight = static_cast<double>(*imageHeight_);
             delete imageWidth_;
             delete imageHeight_;
 

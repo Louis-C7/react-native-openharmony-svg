@@ -105,7 +105,7 @@ public:
                             OH_Drawing_Point2D *tangent);
 
     bool Op(Path &source, OpMode mode);
-    
+
     bool Difference(Path &source);
 
     bool Intersect(Path &source);

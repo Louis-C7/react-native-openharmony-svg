@@ -21,7 +21,7 @@ public:
     bool isPointInFill(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options);
     bool isPointInStroke(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options);
     double getTotalLength(jsi::Runtime &rt, int32_t tag);
-    jsi::Object getPointAtLength(jsi::Runtime &rt, int32_t tag,std::optional<jsi::Object> options);
+    jsi::Object getPointAtLength(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options);
     jsi::Object getBBox(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options);
     jsi::Object getCTM(jsi::Runtime &rt, int32_t tag);
     jsi::Object getScreenCTM(jsi::Runtime &rt, int32_t tag);

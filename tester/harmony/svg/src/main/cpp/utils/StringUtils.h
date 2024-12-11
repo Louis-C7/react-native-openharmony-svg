@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -33,9 +33,6 @@
 #include "properties/Dimension.h"
 #include "utils/SvgUtils.h"
 #include "native_drawing/drawing_bitmap.h"
-#include "multimedia/image_framework/image/image_packer_native.h"
-#include "multimedia/image_framework/image/image_source_native.h"
-#include "multimedia/image_framework/image/pixelmap_native.h"
 
 namespace rnoh {
 namespace svg {
@@ -238,7 +235,7 @@ static Dimension FromString(const std::string &str) {
 };
 
 static Dimension StringToDimensionWithUnit(const std::string &value, DimensionUnit defaultUnit = DimensionUnit::PX,
-                                           float defaultValue = 0.0f, bool isCalc = false) {
+                                    float defaultValue = 0.0f, bool isCalc = false) {
     errno = 0;
     if (std::strcmp(value.c_str(), "auto") == 0) {
         return Dimension(defaultValue, DimensionUnit::AUTO);
@@ -275,38 +272,13 @@ static Dimension StringToDimensionWithUnit(const std::string &value, DimensionUn
     return Dimension(result, defaultUnit);
 }
 
-// inline CalcDimension StringToCalcDimension(
-//     const std::string& value, bool useVp = false, DimensionUnit defaultUnit = DimensionUnit::PX)
-// {
-//     if (value.find("calc") != std::string::npos) {
-//         return CalcDimension(value, DimensionUnit::CALC);
-//     } else {
-//         if (useVp) {
-//             return StringToDimensionWithUnit(value, DimensionUnit::VP);
-//         }
-//         return StringToDimensionWithUnit(value, defaultUnit);
-//     }
-// }
-
 inline Dimension StringToDimension(const std::string &value, bool useVp = false) {
     return StringToDimensionWithUnit(value, useVp ? DimensionUnit::VP : DimensionUnit::PX);
 }
 
-// inline Dimension StringToDimensionWithThemeValue(const std::string& value, bool useVp, const Dimension& themeValue)
-// {
-//     errno = 0;
-//     char* pEnd = nullptr;
-//     std::strtod(value.c_str(), &pEnd);
-//     if (pEnd == value.c_str() || errno == ERANGE) {
-//         return themeValue;
-//     }
-//
-//     return StringToDimensionWithUnit(value, useVp ? DimensionUnit::VP : DimensionUnit::PX);
-// }
-
 static bool StringToDimensionWithUnitNG(const std::string &value, Dimension &dimensionResult,
-                                        DimensionUnit defaultUnit = DimensionUnit::PX, float defaultValue = 0.0f,
-                                        bool isCalc = false) {
+                                 DimensionUnit defaultUnit = DimensionUnit::PX, float defaultValue = 0.0f,
+                                 bool isCalc = false) {
     errno = 0;
     if (std::strcmp(value.c_str(), "auto") == 0) {
         dimensionResult = Dimension(defaultValue, DimensionUnit::AUTO);
@@ -583,8 +555,6 @@ inline void SplitStr(const std::string &str, const std::string &sep, std::vector
     }
 }
 
-// const std::string ACE_EXPORT FormatString(const char* fmt, ...);
-
 inline bool StartWith(const std::string &dst, const std::string &prefix) {
     return dst.compare(0, prefix.size(), prefix) == 0;
 }
@@ -621,12 +591,12 @@ inline void TransformStrCase(std::string &str, int32_t textCase) {
 
 bool IsAscii(const std::string &str);
 
-inline std::vector<double> stringVectorToDoubleVector(const std::vector<std::string> &stringVec) {
+inline std::vector<double> stringVectorToDoubleVector(const std::vector<std::string> &stringVec, const double pixelDensity) {
     std::vector<double> doubleVec;
     doubleVec.reserve(stringVec.size()); // 预分配内存以提高效率
     for (const std::string &str : stringVec) {
         auto value = StringToDouble(str);
-        doubleVec.push_back(vpToPx(value));
+        doubleVec.push_back(pixelDensity * value);
     }
     return doubleVec;
 }

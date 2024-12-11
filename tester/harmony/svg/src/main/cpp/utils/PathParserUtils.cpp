@@ -1,8 +1,11 @@
 /*
- * Copyright 2015-2016 The react-native-svg Authors. All rights reserved
+ * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
- * Copyright (c) 2024 Huawei Device Co., Ltd. All rights reserved
+ *
+ * This file incorporates from the react-native-svg project, licensed under
+ * the MIT License. Specifically:
+ * - [software-mansion/react-native-svg] (https://github.com/software-mansion/react-native-svg)
  */
 
 #include "PathParserUtils.h"
@@ -164,8 +167,6 @@ drawing::Path PathParserUtils::parse(std::string d) {
             throw std::runtime_error("Unexpected command '" + std::string(1, cmd) + "' (s=" + s + ")");
         }
         }
-
-
         if (is_implicit_move_to) {
             if (absolute) {
                 prev_cmd = 'M';
@@ -239,14 +240,20 @@ void PathParserUtils::quadraticBezierCurve(float c1x, float c1y, float c2x, floa
 }
 
 void PathParserUtils::quadraticBezierCurveTo(float c1x, float c1y, float c2x, float c2y) {
+    constexpr float CONTROL_POINT_WEIGHT = 2.0f;
+    constexpr float NORMALIZATION_FACTOR = 3.0f;
+
     mPivotX = c1x;
     mPivotY = c1y;
+
     float ex = c2x;
     float ey = c2y;
-    c2x = (ex + c1x * 2) / 3;
-    c2y = (ey + c1y * 2) / 3;
-    c1x = (mPenX + c1x * 2) / 3;
-    c1y = (mPenY + c1y * 2) / 3;
+
+    c2x = (ex + c1x * CONTROL_POINT_WEIGHT) / NORMALIZATION_FACTOR;
+    c2y = (ey + c1y * CONTROL_POINT_WEIGHT) / NORMALIZATION_FACTOR;
+    c1x = (mPenX + c1x * CONTROL_POINT_WEIGHT) / NORMALIZATION_FACTOR;
+    c1y = (mPenY + c1y * CONTROL_POINT_WEIGHT) / NORMALIZATION_FACTOR;
+
     cubicTo(c1x, c1y, c2x, c2y, ex, ey);
 }
 
@@ -255,7 +262,6 @@ void PathParserUtils::smoothQuadraticBezierCurve(float c1x, float c1y) {
 }
 
 void PathParserUtils::smoothQuadraticBezierCurveTo(float c1x, float c1y) {
-    // FLog.w(ReactConstants.TAG, "smoothquad c1x: " + c1x + " c1y: " + c1y);
     float c2x = c1x;
     float c2y = c1y;
     c1x = (mPenX * 2) - mPivotX;
@@ -393,7 +399,7 @@ void PathParserUtils::arcToBezier(float cx, float cy, float rx, float ry, float 
     float x = std::cos(sa);
     float y = std::sin(sa);
 
-    for (int i = 0; i < n; i++) {
+    for (int index = 0; index < n; index++) {
         float cp1x = x - k * y;
         float cp1y = y + k * x;
 

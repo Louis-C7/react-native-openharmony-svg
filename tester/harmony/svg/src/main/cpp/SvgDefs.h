@@ -13,10 +13,8 @@ namespace rnoh {
 namespace svg {
 
 class SvgDefs : public SvgNode {
-
 public:
     SvgDefs() : SvgNode() { InitDefsFlag(); }
-
     ~SvgDefs() override = default;
 
     void InitDefsFlag() {
@@ -28,12 +26,14 @@ public:
 
     drawing::Path AsPath() override {
         drawing::Path path;
-        DLOG(INFO) << "[SvgDfes:AsPath] : arrived Defs AsPath";
-        for (auto child : children_) {
+        // Early return if there are no children
+        if (children_.empty()) {
+            return path;
+        }
+        for (const auto& child : children_) {
             if (!child) {
-                DLOG(INFO) << "[SvgDfes:AsPath] : childnode is a null ptr";
-            } else {
-                DLOG(INFO) << "[SvgDfes:AsPath] : get child path:";
+                DLOG(WARNING) << "[SvgDefs:AsPath] Encountered a null child node";
+                continue;
             }
             auto childPath = child->AsPath();
             path.Union(childPath);

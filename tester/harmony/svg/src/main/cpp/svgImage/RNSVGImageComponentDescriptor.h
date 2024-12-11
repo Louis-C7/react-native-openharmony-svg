@@ -19,26 +19,23 @@ namespace react {
 /*
  * Descriptor for <RNSVGImage> component.
  */
-class RNSVGImageComponentDescriptor final
-    : public ConcreteComponentDescriptor<RNSVGImageShadowNode> {
- public:
-  RNSVGImageComponentDescriptor(ComponentDescriptorParameters const &parameters)
-      : ConcreteComponentDescriptor(parameters),
-        imageManager_(std::make_shared<ImageManager>(contextContainer_)){};
+class RNSVGImageComponentDescriptor final : public ConcreteComponentDescriptor<RNSVGImageShadowNode> {
+public:
+    RNSVGImageComponentDescriptor(ComponentDescriptorParameters const &parameters)
+        : ConcreteComponentDescriptor(parameters), imageManager_(std::make_shared<ImageManager>(contextContainer_)){};
 
-  void adopt(ShadowNode::Unshared const &shadowNode) const override {
-    ConcreteComponentDescriptor::adopt(shadowNode);
+    void adopt(ShadowNode::Unshared const &shadowNode) const override {
+        ConcreteComponentDescriptor::adopt(shadowNode);
 
-    auto imageShadowNode =
-        std::static_pointer_cast<RNSVGImageShadowNode>(shadowNode);
+        auto imageShadowNode = std::static_pointer_cast<RNSVGImageShadowNode>(shadowNode);
 
-    // `RNSVGImageShadowNode` uses `ImageManager` to initiate image loading and
-    // communicate the loading state and results to mounting layer.
-    imageShadowNode->setImageManager(imageManager_);
-  }
+        // `RNSVGImageShadowNode` uses `ImageManager` to initiate image loading and
+        // communicate the loading state and results to mounting layer.
+        imageShadowNode->setImageManager(imageManager_);
+    }
 
- private:
-  const SharedImageManager imageManager_;
+private:
+    const SharedImageManager imageManager_;
 };
 
 } // namespace react

@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -46,11 +46,6 @@ const char ATTR_NAME_FILL_RULE_EVENODD[] = "evenodd";
 
 class FillState {
 public:
-//     void SetContextAndCallback(const WeakPtr<PipelineContext> &context, const RenderNodeAnimationCallback &callback) {
-//         color_.SetContextAndCallback(context, callback);
-//         opacity_.SetContextAndCallback(context, callback);
-//     }
-//
     enum class FillRule {
         FILL_RULE_EVEN_ODD = 0,
         FILL_RULE_NONZERO = 1
@@ -152,14 +147,6 @@ protected:
 
 class StrokeState {
 public:
-//     void SetContextAndCallback(const WeakPtr<PipelineContext>& context, const RenderNodeAnimationCallback& callback)
-//     {
-//         lineWidth_.SetContextAndCallback(context, callback);
-//         color_.SetContextAndCallback(context, callback);
-//         opacity_.SetContextAndCallback(context, callback);
-//         strokeDashOffset_.SetContextAndCallback(context, callback);
-//     }
-//
     const Color& GetColor() const
     {
         return color_;

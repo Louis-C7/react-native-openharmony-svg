@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -37,6 +37,16 @@
 
 namespace rnoh {
 namespace svg {
+
+constexpr int TRANSFORM_SCALE_X_INDEX = 0;
+constexpr int TRANSFORM_SKEW_Y_INDEX = 1;
+constexpr int TRANSFORM_SKEW_X_INDEX = 2;
+constexpr int TRANSFORM_SCALE_Y_INDEX = 3;
+constexpr int TRANSFORM_TRANSLATE_X_INDEX = 4;
+constexpr int TRANSFORM_TRANSLATE_Y_INDEX = 5;
+constexpr double MATRIX_Z_VALUE = 1.0;
+constexpr int MIN_TRANSFORM_SIZE = 6; // 至少需要 6 个元素
+constexpr int MAX_TRANSFORM_SIZE = 9; // 至多 9 个元素
 
 void SvgGraphic::OnDraw(OH_Drawing_Canvas *canvas) {
     DLOG(INFO) << "[SVGGraphic] onDraw marker = " << attributes_.markerStart << " " << attributes_.markerMid << " "
@@ -101,10 +111,12 @@ void SvgGraphic::OnGraphicStroke(OH_Drawing_Canvas *canvas) {
         OH_Drawing_MaskFilterDestroy(maskFilter);
     } else {
         const auto &transform = attributes_.transform;
-        if (attributes_.strokeState.GetVectorEffect() && transform.size() > 5) {
+        if (attributes_.strokeState.GetVectorEffect() && transform.size() >= MIN_TRANSFORM_SIZE) {
             auto matrix = drawing::Matrix();
-            matrix.SetMatrix(transform[0], transform[2], transform[4] * scale_, transform[1], transform[3],
-                             transform[5] * scale_, 0, 0, 1.0);
+            matrix.SetMatrix(transform[TRANSFORM_SCALE_X_INDEX], transform[TRANSFORM_SKEW_X_INDEX],
+                             transform[TRANSFORM_TRANSLATE_X_INDEX] * scale_, transform[TRANSFORM_SKEW_Y_INDEX],
+                             transform[TRANSFORM_SCALE_Y_INDEX], transform[TRANSFORM_TRANSLATE_Y_INDEX] * scale_, 0, 0,
+                             MATRIX_Z_VALUE);
             path_.Transform(matrix);
         }
         OH_Drawing_CanvasAttachPen(canvas, strokePen_.get());
@@ -113,10 +125,8 @@ void SvgGraphic::OnGraphicStroke(OH_Drawing_Canvas *canvas) {
     }
 }
 
-// todo implement bounds
 void SvgGraphic::UpdateGradient(std::optional<Gradient> &gradient) {
     CHECK_NULL_VOID(gradient);
-    // objectBoundingBox - 0(DEFAULT), userSpaceOnUse - 1
     auto nodeBounds = (gradient->GetGradientUnits() == Unit::objectBoundingBox)
                           ? AsBounds()
                           : Rect(0, 0, context_->GetSvgSize().Width(), context_->GetSvgSize().Height());
@@ -418,10 +428,6 @@ bool SvgGraphic::SetPatternStyle() {
 
 bool SvgGraphic::UpdateStrokeStyle(bool antiAlias) {
     const auto &strokeState = attributes_.strokeState;
-    //     auto colorFilter = GetColorFilter();
-    //     if (!colorFilter.has_value() && strokeState.GetColor() == Color::TRANSPARENT) {
-    //         return false;
-    //     }
     if (!GreatNotEqual(strokeState.GetLineWidth(), 0.0)) {
         return false;
     }
@@ -452,9 +458,6 @@ bool SvgGraphic::UpdateStrokeStyle(bool antiAlias) {
     strokePen_.SetWidth(strokeState.GetLineWidth());
     strokePen_.SetMiterLimit(strokeState.GetMiterLimit());
     strokePen_.SetAntiAlias(antiAlias);
-    //     auto filter = strokePen_.GetFilter();
-    //     UpdateColorFilter(filter);
-    //     strokePen_.SetFilter(filter);
     UpdateLineDash();
     return true;
 }

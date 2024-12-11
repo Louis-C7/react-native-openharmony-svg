@@ -19,7 +19,7 @@ namespace svg {
 class RNSVGSvgViewComponentInstance : public CppComponentInstance<facebook::react::RNSVGSvgViewShadowNode>,
                                       public SvgHost {
 public:
-    RNSVGSvgViewComponentInstance(Context context);
+    explicit RNSVGSvgViewComponentInstance(Context context);
     ~RNSVGSvgViewComponentInstance();
 
     void onFinalizeUpdates() override;

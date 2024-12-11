@@ -3,7 +3,7 @@
  * Use of this source code is governed by a MIT license that can be
  * found in the LICENSE file.
  *
- * This file incorporates code from another team within Huawei Device Co., Ltd, licensed under
+ * This file incorporates from the OpenHarmony project, licensed under
  * the Apache License, Version 2.0. Specifically:
  * - [OpenHarmony/arkui_ace_engine] (https://gitee.com/openharmony/arkui_ace_engine)
  *
@@ -30,6 +30,15 @@
 
 namespace rnoh {
 namespace svg {
+
+constexpr size_t MIN_TRANSFORM_SIZE = 6;
+constexpr int TRANSFORM_SCALE_X_INDEX = 0;
+constexpr int TRANSFORM_SKEW_Y_INDEX = 1;
+constexpr int TRANSFORM_SKEW_X_INDEX = 2;
+constexpr int TRANSFORM_SCALE_Y_INDEX = 3;
+constexpr int TRANSFORM_TRANSLATE_X_INDEX = 4;
+constexpr int TRANSFORM_TRANSLATE_Y_INDEX = 5;
+constexpr double MATRIX_Z_VALUE = 1.0;
 
 void SvgNode::InitStyle(const SvgBaseAttribute &attr) {
     // reset gradient to null
@@ -79,7 +88,6 @@ void SvgNode::OnDrawTraversed(OH_Drawing_Canvas *canvas) {
 
 const Rect &SvgNode::GetRootViewBox() const {
     if (!context_) {
-        //         DLOGE("Gradient failed, svgContext is null");
         static Rect empty;
         return empty;
     }
@@ -99,11 +107,7 @@ void SvgNode::OnClipPath(OH_Drawing_Canvas *canvas) {
     };
     auto clipPath = refSvgNode->AsPath();
 
-    // TODO: maybe return optional from AsPath?
-    // if (!clipPath) {
-    //     DLOG(WARNING) << "[SvgNode] OnClipPath: Path is null!";
-    //     return;
-    // };
+    // maybe return optional from AsPath?
 
     // Set clipRule through Drawing API
     clipPath.SetFillType(attributes_.clipState.GetClipRuleForDraw());
@@ -129,9 +133,11 @@ void SvgNode::OnTransform(OH_Drawing_Canvas *canvas) {
     /* (OH_Drawing_Matrix* , float scaleX, float skewX, float transX, float skewY, float scaleY, float transY, float
     persp0, float persp1, float persp2 )
     */
-    if (!attributes_.strokeState.GetVectorEffect() && transform.size() > 5) {
-        cTM_.SetMatrix(transform[0], transform[2], transform[4] * scale_, transform[1], transform[3],
-                       transform[5] * scale_, 0, 0, 1.0);
+    if (!attributes_.strokeState.GetVectorEffect() && transform.size() >= MIN_TRANSFORM_SIZE) {
+        cTM_.SetMatrix(transform[TRANSFORM_SCALE_X_INDEX], transform[TRANSFORM_SKEW_X_INDEX],
+                       transform[TRANSFORM_TRANSLATE_X_INDEX] * scale_, transform[TRANSFORM_SKEW_Y_INDEX],
+                       transform[TRANSFORM_SCALE_Y_INDEX], transform[TRANSFORM_TRANSLATE_Y_INDEX] * scale_, 0, 0,
+                       MATRIX_Z_VALUE);
         OH_Drawing_CanvasConcatMatrix(canvas, cTM_.get());
     }
 }
@@ -225,7 +231,7 @@ double SvgNode::getCanvasWidth() {
     if (canvasWidth_ != -1) {
         return canvasWidth_;
     }
-    // TODO if root is text root
+    // to be done? if root is text root
     if (context_) {
         canvasWidth_ = context_->getCanvasBounds().Width() / context_->getCanvasScaleX();
         return canvasWidth_;
@@ -237,7 +243,7 @@ double SvgNode::getCanvasHeight() {
     if (canvasHeight_ != -1) {
         return canvasHeight_;
     }
-    // TODO if root is text root
+    // to be done? if root is text root
     if (context_) {
         canvasHeight_ = context_->getCanvasBounds().Height() / context_->getCanvasScaleY();
         return canvasHeight_;

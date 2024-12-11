@@ -18,7 +18,7 @@ drawing::Path SvgLine::AsPath() {
 
     path.MoveTo(x1, y1);
     path.LineTo(x2, y2);
-    
+
     elements_ = {PathElement(ElementType::kCGPathElementMoveToPoint, {Point(x1, y1)}),
                  PathElement(ElementType::kCGPathElementAddLineToPoint, {Point(x2, y2)})};
     return path;

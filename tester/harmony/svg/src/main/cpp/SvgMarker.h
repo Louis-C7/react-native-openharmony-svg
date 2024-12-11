@@ -24,13 +24,9 @@ public:
     SvgMarker() = default;
     ~SvgMarker() override = default;
 
-    void setRefX(const std::string &refX) {
-        markerAttribute_.refX = SvgAttributesParser::ParseDimension(refX, true);
-    }
+    void setRefX(const std::string &refX) { markerAttribute_.refX = SvgAttributesParser::ParseDimension(refX, true); }
 
-    void setRefY(const std::string &refY) {
-        markerAttribute_.refY = SvgAttributesParser::ParseDimension(refY, true);
-    }
+    void setRefY(const std::string &refY) { markerAttribute_.refY = SvgAttributesParser::ParseDimension(refY, true); }
 
     void setMarkerWidth(const std::string &markerWidth) {
         markerAttribute_.markerWidth = SvgAttributesParser::ParseDimension(markerWidth, true);
@@ -40,13 +36,9 @@ public:
         markerAttribute_.markerHeight = SvgAttributesParser::ParseDimension(markerHeight, true);
     }
 
-    void setMarkerUnits(const std::string &markerUnits) {
-        markerAttribute_.markerUnits = markerUnits;
-    }
+    void setMarkerUnits(const std::string &markerUnits) { markerAttribute_.markerUnits = markerUnits; }
 
-    void setOrient(const std::string &orient) {
-        markerAttribute_.orient = orient;
-    }
+    void setOrient(const std::string &orient) { markerAttribute_.orient = orient; }
 
     void setMinX(double minX) { markerAttribute_.minX = Dimension(minX, DimensionUnit::VP); }
 

@@ -24,7 +24,7 @@ public:
         pointerEvents_ = props->pointerEvents.size() == 0 ? "auto" : props->pointerEvents;
         svgMarkDirty();
     }
-    
+
     void onFinalizeUpdates() override {
         if (GetSvgNode()) {
             GetSvgNode()->SetScale(CppComponentInstance<T>::m_layoutMetrics.pointScaleFactor);
@@ -87,13 +87,15 @@ public:
         // For debug
         auto rect = node->AsBounds();
         DLOG(INFO) << "[SvgTouch] asBound x: " << rect.Left() << ", y: " << rect.Top() << ", width: " << rect.Width()
-                  << ", height: " << rect.Height();
+                   << ", height: " << rect.Height();
 
         auto invertedTransform = node->lastCanvasMatrix_.Invert();
         if (!invertedTransform.has_value()) {
             return false;
         }
-        auto transformed = invertedTransform.value().MapPoint({float(vpToPx(point.x)), float(vpToPx(point.y))});
+        auto transformed = invertedTransform.value().MapPoint(
+            {float(CppComponentInstance<T>::m_layoutMetrics.pointScaleFactor * point.x),
+             float(CppComponentInstance<T>::m_layoutMetrics.pointScaleFactor * point.y)});
         return node->AsPath().Contains(transformed.x, transformed.y);
     }
 
@@ -181,7 +183,6 @@ protected:
 private:
     std::weak_ptr<RNSVGSvgViewComponentInstance> m_svgViewComponentInstance;
     std::string pointerEvents_ = "auto";
-    
 };
 
 } // namespace svg

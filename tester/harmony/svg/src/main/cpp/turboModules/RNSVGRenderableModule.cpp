@@ -12,16 +12,26 @@ using namespace react;
 namespace rnoh {
 namespace svg {
 
-bool RNSVGRenderableModule::isPointInFill(facebook::jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options) { return false; }
-bool RNSVGRenderableModule::isPointInStroke(facebook::jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options) { return false; }
-double RNSVGRenderableModule::getTotalLength(jsi::Runtime &rt, int32_t tag){return 0;}
-jsi::Object RNSVGRenderableModule::getPointAtLength(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options){return jsi::Object(rt);};
-jsi::Object RNSVGRenderableModule::getBBox(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options){return jsi::Object(rt);};
-jsi::Object RNSVGRenderableModule::getCTM(jsi::Runtime &rt, int32_t tag){return jsi::Object(rt);};
-jsi::Object RNSVGRenderableModule::getScreenCTM(jsi::Runtime &rt, int32_t tag){return jsi::Object(rt);};
-jsi::Value RNSVGRenderableModule::getRawResource(jsi::Runtime &rt, jsi::String name){return jsi::Object(rt);};
+bool RNSVGRenderableModule::isPointInFill(facebook::jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options) {
+    return false;
+}
+bool RNSVGRenderableModule::isPointInStroke(facebook::jsi::Runtime &rt, int32_t tag,
+                                            std::optional<jsi::Object> options) {
+    return false;
+}
+double RNSVGRenderableModule::getTotalLength(jsi::Runtime &rt, int32_t tag) { return 0; }
+jsi::Object RNSVGRenderableModule::getPointAtLength(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options) {
+    return jsi::Object(rt);
+};
+jsi::Object RNSVGRenderableModule::getBBox(jsi::Runtime &rt, int32_t tag, std::optional<jsi::Object> options) {
+    return jsi::Object(rt);
+};
+jsi::Object RNSVGRenderableModule::getCTM(jsi::Runtime &rt, int32_t tag) { return jsi::Object(rt); };
+jsi::Object RNSVGRenderableModule::getScreenCTM(jsi::Runtime &rt, int32_t tag) { return jsi::Object(rt); };
+jsi::Value RNSVGRenderableModule::getRawResource(jsi::Runtime &rt, jsi::String name) { return jsi::Object(rt); };
 
-static jsi::Value __hostFunction_RNSVGRenderableModule_isPointInFill(jsi::Runtime &rt,react::TurboModule &turboModule,const jsi::Value *args,size_t count) {
+static jsi::Value __hostFunction_RNSVGRenderableModule_isPointInFill(jsi::Runtime &rt, react::TurboModule &turboModule,
+                                                                     const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
         ->isPointInFill(
             rt, args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value(),
@@ -30,59 +40,49 @@ static jsi::Value __hostFunction_RNSVGRenderableModule_isPointInFill(jsi::Runtim
 }
 
 static jsi::Value __hostFunction_RNSVGRenderableModule_isPointInStroke(jsi::Runtime &rt,
-                                                                                     react::TurboModule &turboModule,
-                                                                                     const jsi::Value *args,
-                                                                                     size_t count) {
+                                                                       react::TurboModule &turboModule,
+                                                                       const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
         ->isPointInStroke(
             rt, args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value(),
             count <= 1 || args[1].isNull() || args[1].isUndefined() ? std::nullopt
                                                                     : std::make_optional(args[1].asObject(rt)));
 }
-static jsi::Value __hostFunction_RNSVGRenderableModule_getTotalLength(jsi::Runtime &rt,
-                                                                                    react::TurboModule &turboModule,
-                                                                                    const jsi::Value *args,
-                                                                                    size_t count) {
+static jsi::Value __hostFunction_RNSVGRenderableModule_getTotalLength(jsi::Runtime &rt, react::TurboModule &turboModule,
+                                                                      const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
-        ->getTotalLength(rt, args[0].isNull() || args[0].isUndefined() ? 0
-                                                                       : std::make_optional(args[0].asNumber()).value());
+        ->getTotalLength(
+            rt, args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value());
 }
 static jsi::Value __hostFunction_RNSVGRenderableModule_getPointAtLength(jsi::Runtime &rt,
-                                                                                      react::TurboModule &turboModule,
-                                                                                      const jsi::Value *args,
-                                                                                      size_t count) {
+                                                                        react::TurboModule &turboModule,
+                                                                        const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
         ->getPointAtLength(
             rt, args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value(),
             count <= 1 || args[1].isNull() || args[1].isUndefined() ? std::nullopt
                                                                     : std::make_optional(args[1].asObject(rt)));
 }
-static jsi::Value __hostFunction_RNSVGRenderableModule_getBBox(jsi::Runtime &rt,
-                                                                             react::TurboModule &turboModule,
-                                                                             const jsi::Value *args, size_t count) {
+static jsi::Value __hostFunction_RNSVGRenderableModule_getBBox(jsi::Runtime &rt, react::TurboModule &turboModule,
+                                                               const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
         ->getBBox(rt, args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value(),
                   count <= 1 || args[1].isNull() || args[1].isUndefined() ? std::nullopt
                                                                           : std::make_optional(args[1].asObject(rt)));
 }
-static jsi::Value __hostFunction_RNSVGRenderableModule_getCTM(jsi::Runtime &rt,
-                                                                            react::TurboModule &turboModule,
-                                                                            const jsi::Value *args, size_t count) {
+static jsi::Value __hostFunction_RNSVGRenderableModule_getCTM(jsi::Runtime &rt, react::TurboModule &turboModule,
+                                                              const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
         ->getCTM(rt, args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value());
 }
-static jsi::Value __hostFunction_RNSVGRenderableModule_getScreenCTM(jsi::Runtime &rt,
-                                                                                  react::TurboModule &turboModule,
-                                                                                  const jsi::Value *args,
-                                                                                  size_t count) {
+static jsi::Value __hostFunction_RNSVGRenderableModule_getScreenCTM(jsi::Runtime &rt, react::TurboModule &turboModule,
+                                                                    const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)
-        ->getScreenCTM(rt, args[0].isNull() || args[0].isUndefined() ? 0
-                                                                     : std::make_optional(args[0].asNumber()).value());
+        ->getScreenCTM(rt,
+                       args[0].isNull() || args[0].isUndefined() ? 0 : std::make_optional(args[0].asNumber()).value());
 }
-static jsi::Value __hostFunction_RNSVGRenderableModule_getRawResource(jsi::Runtime &rt,
-                                                                                    react::TurboModule &turboModule,
-                                                                                    const jsi::Value *args,
-                                                                                    size_t count) {
+static jsi::Value __hostFunction_RNSVGRenderableModule_getRawResource(jsi::Runtime &rt, react::TurboModule &turboModule,
+                                                                      const jsi::Value *args, size_t count) {
     return static_cast<RNSVGRenderableModule *>(&turboModule)->getRawResource(rt, args[0].asString(rt));
 }
 
