@@ -1,6 +1,6 @@
 {
   "name": "@react-native-oh-tpl/react-native-svg",
-  "version": "15.0.0-0.5.9",
+  "version": "15.0.0-0.6.0",
   "description": "",
   "react-native": "src/index",
   "main": "lib/commonjs/index",
@@ -10,7 +10,8 @@
     "prepack": "bob build",
     "prepublishOnly": "npm run prepack && react-native verify-package-harmony --package-path . --skip-checks oh_package_name_is_derived_from_npm_package_name",
     "update_version": "node ./scripts/update-version.js",
-    "deploy": "node ./scripts/deploy.js"
+    "deploy": "node ./scripts/deploy.js",
+    "codegen-lib": "react-native codegen-lib-harmony --no-safety-check --npm-package-name react-native-svg --cpp-output-path ./harmony/svg/src/main/cpp/generated --ets-output-path ./harmony/svg/src/main/ets/generated --cpp-components-spec-paths ./node_modules/react-native-svg/src/fabric"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "react-native-svg": "15.0.0"
   },
   "devDependencies": {
+    "@rnoh/react-native-harmony-cli": "npm:@react-native-oh/react-native-harmony-cli@^0.0.27",
     "@tsconfig/react-native": "^3.0.0",
     "@types/react": "^18.2.0",
     "@types/react-native": "^0.71.6",
