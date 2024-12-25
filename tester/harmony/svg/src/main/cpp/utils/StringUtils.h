@@ -235,7 +235,7 @@ static Dimension FromString(const std::string &str) {
 };
 
 static Dimension StringToDimensionWithUnit(const std::string &value, DimensionUnit defaultUnit = DimensionUnit::PX,
-                                    float defaultValue = 0.0f, bool isCalc = false) {
+                                           float defaultValue = 0.0f, bool isCalc = false) {
     errno = 0;
     if (std::strcmp(value.c_str(), "auto") == 0) {
         return Dimension(defaultValue, DimensionUnit::AUTO);
@@ -277,8 +277,8 @@ inline Dimension StringToDimension(const std::string &value, bool useVp = false)
 }
 
 static bool StringToDimensionWithUnitNG(const std::string &value, Dimension &dimensionResult,
-                                 DimensionUnit defaultUnit = DimensionUnit::PX, float defaultValue = 0.0f,
-                                 bool isCalc = false) {
+                                        DimensionUnit defaultUnit = DimensionUnit::PX, float defaultValue = 0.0f,
+                                        bool isCalc = false) {
     errno = 0;
     if (std::strcmp(value.c_str(), "auto") == 0) {
         dimensionResult = Dimension(defaultValue, DimensionUnit::AUTO);
@@ -591,7 +591,8 @@ inline void TransformStrCase(std::string &str, int32_t textCase) {
 
 bool IsAscii(const std::string &str);
 
-inline std::vector<double> stringVectorToDoubleVector(const std::vector<std::string> &stringVec, const double pixelDensity) {
+inline std::vector<double> stringVectorToDoubleVector(const std::vector<std::string> &stringVec,
+                                                      const double pixelDensity) {
     std::vector<double> doubleVec;
     doubleVec.reserve(stringVec.size()); // 预分配内存以提高效率
     for (const std::string &str : stringVec) {
@@ -608,9 +609,36 @@ inline std::string doubleVectorToString(const std::vector<double> &doubleVec) {
     }
     return oss.str(); // 将流中的内容转换为字符串并返回
 }
+
 std::string base64_encode(unsigned char const *bytes_to_encode, size_t in_len, bool url = false);
 std::string bitmapToBase64(OH_Drawing_Bitmap *bitmap);
-} // namespace StringUtils
 
+inline std::string getFileExtension(const std::string &uri) {
+    size_t pos = uri.rfind('.');
+    if (pos != std::string::npos) {
+        return uri.substr(pos); // 返回后缀名，包括点 ".jpg"
+    }
+    return ""; // 如果没有扩展名，返回空字符串
+}
+
+inline std::string generateHash(const std::string &url) {
+    std::hash<std::string> hash_fn;
+    size_t hash = hash_fn(url);
+    // 将哈希值转换为固定宽度的十六进制字符串（16位）
+    std::stringstream ss;
+    ss << std::hex << std::setw(16) << std::setfill('0') << hash;
+    return ss.str();
+}
+
+inline std::string generateHashedFileName(const std::string &uri) {
+    // 获取文件后缀名
+    std::string extension = StringUtils::getFileExtension(uri);
+    // 对URI进行哈希
+    std::string hash = StringUtils::generateHash(uri);
+    // 返回哈希值 + 文件后缀
+    return hash + extension;
+}
+
+} // namespace StringUtils
 } // namespace svg
 } // namespace rnoh
