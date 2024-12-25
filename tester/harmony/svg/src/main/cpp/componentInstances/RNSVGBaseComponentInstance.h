@@ -22,7 +22,6 @@ public:
 
     void onPropsChanged(typename CppComponentInstance<T>::SharedConcreteProps const &props) override {
         pointerEvents_ = props->pointerEvents.size() == 0 ? "auto" : props->pointerEvents;
-        svgMarkDirty();
     }
 
     void onFinalizeUpdates() override {
