@@ -16,7 +16,11 @@ void SvgPath::setD(const std::string &d) {
     d_ = d;
     PathParserUtils parser;
     parser.mScale = scale_;
-    path_ = std::move(parser.parse(d.c_str()));
+    try {
+        path_ = std::move(parser.parse(d.c_str()));
+    } catch (const std::runtime_error &e) {
+        LOG(ERROR) << "[svgPath] Svg path d invalid, error message: " << e.what();
+    }
     elements_ = parser.elements;
     for (PathElement &elem : elements_) {
         for (Point &point : elem.points) {
