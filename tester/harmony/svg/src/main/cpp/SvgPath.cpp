@@ -20,8 +20,9 @@ void SvgPath::setD(const std::string &d) {
         path_ = std::move(parser.parse(d.c_str()));
     } catch (const std::runtime_error &e) {
         LOG(ERROR) << "[svgPath] Svg path d invalid, error message: " << e.what();
+        return;
     }
-    elements_ = parser.elements;
+    elements_ = std::move(parser.elements);
     for (PathElement &elem : elements_) {
         for (Point &point : elem.points) {
             point.x *= scale_;

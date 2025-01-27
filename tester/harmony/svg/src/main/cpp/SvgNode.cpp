@@ -177,11 +177,11 @@ void SvgNode::Draw(OH_Drawing_Canvas *canvas) {
     // mask and filter create extra layers, need to record initial layer count
     const auto count = OH_Drawing_CanvasGetSaveCount(canvas);
     OH_Drawing_CanvasSave(canvas);
-    if (!hrefClipPath_.empty()) {
-        OnClipPath(canvas);
-    }
     if (!attributes_.transform.empty()) {
         OnTransform(canvas);
+    }
+    if (!hrefClipPath_.empty()) {
+        OnClipPath(canvas);
     }
     if (!attributes_.maskId.empty()) {
         OnMask(canvas);

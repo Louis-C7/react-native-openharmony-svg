@@ -28,6 +28,7 @@ import Issue244 from './issueTests/Issue244';
 import Issue267 from './issueTests/Issue267';
 import Issue280 from './issueTests/Issue280';
 import Issue308 from './issueTests/Issue308';
+import Issue324 from './issueTests/Issue324';
 
 class SvgLayoutExample extends Component {
   static title = 'SVG with flex layout';
@@ -403,6 +404,9 @@ export default function () {
         </TestCase>
         <TestCase itShould="Issue #308: The TSpan should be displayed with proper alignment.">
           <Issue308 />
+        </TestCase>
+        <TestCase itShould="Issue #324: The square should be displayed with red, blue, green and yellow.">
+          <Issue324 />
         </TestCase>
       </ScrollView>
     </Tester>
