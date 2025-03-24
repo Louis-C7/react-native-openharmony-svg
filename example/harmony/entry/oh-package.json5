@@ -1,0 +1,11 @@
+{
+  "license": "ISC",
+  "devDependencies": {},
+  "name": "entry",
+  "description": "example description",
+  "repository": '',
+  "version": "1.0.0",
+  "dependencies": {
+    "@louisc7/react-native-oh-svg": "file:../../../package/harmony/svg"
+  }
+}

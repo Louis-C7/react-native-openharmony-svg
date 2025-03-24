@@ -1,13 +1,5 @@
-# @react-native-oh-tpl/react-native-svg
+# @louisc7/react-native-oh-svg
 
-This project is based on [react-native-svg](https://github.com/software-mansion/react-native-svg)
+This project is the OpenHarmony platform adaptation of [react-native-svg](https://github.com/software-mansion/react-native-svg) and a self-maintained fork of [@react-native-oh-tpl/react-native-svg](https://github.com/react-native-oh-library/react-native-harmony-svg). While `@react-native-oh-tpl/react-native-svg` continues to be maintained by other teams, this version is my personal project, maintained out of personal interest.
 
-## Documentation
-
-- [中文](https://gitee.com/react-native-oh-library/usage-docs/blob/master/zh-cn/react-native-svg-capi.md)
-
-- [English](https://gitee.com/react-native-oh-library/usage-docs/blob/master/en/react-native-svg-capi.md)
-
-## License
-
-This library is licensed under [The MIT License (MIT)](https://github.com/software-mansion/react-native-svg/blob/main/LICENSE)
+**Dependency:** This library requires [react-native-openharmony](https://gitcode.com/openharmony-sig/ohos_react_native).
