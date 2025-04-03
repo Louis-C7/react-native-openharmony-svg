@@ -1482,7 +1482,7 @@
 "@louisc7/react-native-oh-svg@file:../package/louisc7-react-native-oh-svg-15.0.0.tgz":
   version "15.0.0"
   resolved "file:../package/louisc7-react-native-oh-svg-15.0.0.tgz"
-  integrity sha512-3wPRsT1zM8SXMm2IRJXyjNiW2HwbwBKnjXdUMhUj6Pix81LC6Y+ZEvkLN0+reUpsmPX2OOiP1pl10f6s068inA==
+  integrity sha512-85jat3h/y2KaC0WktCDanHF3lFiWUcz+a/srX6zkeB+xsQOJpoGlpO3xwfiPjW0iI2guqn/15y+Ln/Udxy2FsA==
   dependencies:
     css-select "^5.1.0"
     css-tree "^1.1.3"
@@ -1745,17 +1745,6 @@
     tar "^6.1.15"
     tmp "^0.2.1"
 
-"@react-native-oh/react-native-harmony@0.72.53":
-  version "0.72.53"
-  resolved "https://registry.npmjs.org/@react-native-oh/react-native-harmony/-/react-native-harmony-0.72.53.tgz"
-  integrity sha512-N3c8so1rHLYjt5p3JAL/pbOjdzAWfx6bFQrNmb4zFBGpGTTO1pgXcpugAYEsC9W454jRU3c6j/WPS20DEXA61A==
-  dependencies:
-    "@react-native-oh/react-native-harmony-cli" "^0.0.28"
-    colors "^1.4.0"
-    fs-extra "^11.1.1"
-    metro "^0.76.3"
-    metro-config "^0.76.3"
-
 "@react-native/assets-registry@^0.72.0":
   version "0.72.0"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.72.0.tgz"
@@ -1822,10 +1811,10 @@
     invariant "^2.2.4"
     nullthrows "^1.1.1"
 
-"@rnoh/testerino@file:rnoh_package/testerino/rnoh-testerino-0.0.9.tgz":
+"@rnoh/testerino@npm:@react-native-oh-tpl/testerino@0.0.9":
   version "0.0.9"
-  resolved "file:rnoh_package/testerino/rnoh-testerino-0.0.9.tgz"
-  integrity sha512-kOXUWo2/S0AKVrWtLxfgoEtU8iWRzcFJzfrZKfRGvSB/eOPpaTR+gHqtPwORezflHrVcVD+2DRUcIKqVzliXog==
+  resolved "https://registry.npmjs.org/@react-native-oh-tpl/testerino/-/testerino-0.0.9.tgz"
+  integrity sha512-6ARpIYZzlocE+nBklgKuX+Uv3FrBpwwCL3UGxgPveugNTxf21VIfRuy0BF9l5CSO+B6FkYeT0uZeoKJ7y3j5aQ==
   dependencies:
     "@types/chai" "^4.3.5"
     chai "^4.3.7"
@@ -3764,11 +3753,6 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
-
-fsevents@^2.3.2:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -6362,6 +6346,17 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+"react-native-harmony@npm:@react-native-oh/react-native-harmony@0.72.53":
+  version "0.72.53"
+  resolved "https://registry.npmjs.org/@react-native-oh/react-native-harmony/-/react-native-harmony-0.72.53.tgz"
+  integrity sha512-N3c8so1rHLYjt5p3JAL/pbOjdzAWfx6bFQrNmb4zFBGpGTTO1pgXcpugAYEsC9W454jRU3c6j/WPS20DEXA61A==
+  dependencies:
+    "@react-native-oh/react-native-harmony-cli" "^0.0.28"
+    colors "^1.4.0"
+    fs-extra "^11.1.1"
+    metro "^0.76.3"
+    metro-config "^0.76.3"
 
 react-native-qrcode-svg@^6.2.0:
   version "6.3.15"
