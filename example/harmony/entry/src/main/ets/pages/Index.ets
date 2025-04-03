@@ -58,7 +58,6 @@ struct Index {
             enableCAPIArchitecture: true,
             arkTsComponentNames: arkTsComponentNames,
             fontResourceByFontFamily: {
-              "PingFangSC-Regular": $rawfile('assets/fonts/PingFang-SC-Regular.ttf'),
             },
           },
           initialProps: { "foo": "bar" } as Record<string, string>,
