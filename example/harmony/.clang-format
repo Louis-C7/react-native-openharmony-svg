@@ -8,7 +8,7 @@ UseTab: Never
 AccessModifierOffset: -4
 ContinuationIndentWidth: 4
 IndentCaseBlocks: false
-IndentCaseLabels: true
+IndentCaseLabels: false
 IndentGotoLabels: true
 IndentWrappedFunctionNames: false
 SortUsingDeclarations: false
@@ -17,7 +17,7 @@ SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
-SpaceBeforeCaseColon: true
+SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
@@ -34,7 +34,7 @@ AlignTrailingComments: true
 AlignAfterOpenBracket: true
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortEnumsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: None
+AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: All
 AllowShortLoopsOnASingleLine: false
@@ -53,7 +53,7 @@ BraceWrapping:
     AfterClass: false
     AfterControlStatement: Never
     AfterEnum: false
-    AfterFunction: true
+    AfterFunction: false
     AfterNamespace: false
     AfterStruct: false
     AfterUnion: false
@@ -61,4 +61,4 @@ BraceWrapping:
     BeforeCatch: false
     BeforeElse: false
 ReflowComments: true
-MaxEmptyLinesToKeep: 1
+MaxEmptyLinesToKeep: 2
